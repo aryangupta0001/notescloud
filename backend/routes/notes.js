@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
     obj = {
-        a: "Notescoud.com"
+        a: "Notescloud.com"
     }
 
     res.json(obj)
