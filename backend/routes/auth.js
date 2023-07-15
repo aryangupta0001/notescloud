@@ -30,11 +30,16 @@ router.post("/", [
         const result = validationResult(req);
         if (result.isEmpty()) {
             // return res.send(`Hello, ${req.body.name}!`);
-            User.create({
+
+
+            // Below we are using .create() method on User (which is a mongoose model imported above) in the .create() method, we provide the user info.
+
+            User.create({                                       // The .create() method calls the .save() method of mongoose to save the user as a new document into databasse.
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password
-            }).then(user => res.send(user));
+            }).then(user => res.send(user))
+            .catch(error => console.log(error))
         }
 
         else {
