@@ -32,14 +32,13 @@ router.post("/createuser", [
 
         // To validate the results according to the model defined.
         const result = validationResult(req);
-        console.log(typeof result, result);
 
-        if (result.isEmpty()) {         // checks whether the re
+        if (result.isEmpty()) {         // checks whether the resullt object is empty or not, if it is empty,  it means there are no validation errors & all values are valid.
             
             try {
-                const user = await User.findOne({ email: req.body.email });
+                const user = await User.findOne({ email: req.body.email });         // It finds for the  document with same e-mail idd that is provided in current request.
                 
-                if (user) {
+                if (user) {             // If any doocument with current e-mail id is available in collection, it means it is duplicate.
                     return res.status(400).json({ error: "A user with this email already exists" });
                 }
                 
@@ -51,7 +50,7 @@ router.post("/createuser", [
                         email: req.body.email,
                         password: req.body.password
                     })
-                    res.send(user);
+                    res.send(user);                 // A response for new user registration is sent.
                 }
             } catch (error) {
                 res.status(500).send("Some Error Occured\n" + error);
