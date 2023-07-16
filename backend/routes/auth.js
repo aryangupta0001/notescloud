@@ -19,6 +19,8 @@ router.get("/hello", (req, res) => {
 })
 
 
+// Endpoint to create new user by sending data through POST request.
+
 router.post("/createuser", [
     body("name", "Enter a valid name : ").isLength({ min: 5 }),
     body("email", "Enter a valid email : ").isEmail(),
@@ -26,24 +28,39 @@ router.post("/createuser", [
 
     // In above validations, the second parameter is optional, it is sent to the client when any error occurs (i.e validation fails)    
 ],
-    (req, res) => {
+    async (req, res) => {
+
+        // To validate the results according to the model defined.
         const result = validationResult(req);
-        if (result.isEmpty()) {
-            // return res.send(`Hello, ${req.body.name}!`);
+        console.log(typeof result, result);
 
-
-            // Below we are using .create() method on User (which is a mongoose model imported above) in the .create() method, we provide the user info.
-
-            User.create({                                       // The .create() method calls the .save() method of mongoose to save the user as a new document into databasse.
-                name: req.body.name,
-                email: req.body.email,
-                password: req.body.password
-            }).then(user => res.send(user))
-                .catch(error => {
-                    console.log(error);;
-                    res.send(error+  "\n E-mail already registered, please use a different email id" )
+        if (result.isEmpty()) {         // checks whether the re
+            
+            try {
+                const user = await User.findOne({ email: req.body.email });
+                
+                if (user) {
+                    return res.status(400).json({ error: "A user with this email already exists" });
                 }
-                )
+                
+                else {
+                    // Below we are using .create() method on User (which is a mongoose model imported above) in the .create() method, we provide the user info.
+
+                    const user = await User.create({            // The .create() method calls the .save() method of mongoose to save the user as a new document into databasse.
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: req.body.password
+                    })
+                    res.send(user);
+                }
+            } catch (error) {
+                res.status(500).send("Some Error Occured\n" + error);
+                console.error(error.message)
+            }
+
+
+
+
         }
 
         else {

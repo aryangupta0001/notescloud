@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        // unique: true                                                         // It will set email as a unique id & it will be added to indexes.
     },
 
     password: {
