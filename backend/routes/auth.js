@@ -19,7 +19,7 @@ router.get("/hello", (req, res) => {
 })
 
 
-router.post("/", [
+router.post("/createuser", [
     body("name", "Enter a valid name : ").isLength({ min: 5 }),
     body("email", "Enter a valid email : ").isEmail(),
     body("password", "Password should be min. 5 characters long : ").isLength({ min: 5 })
@@ -39,7 +39,11 @@ router.post("/", [
                 email: req.body.email,
                 password: req.body.password
             }).then(user => res.send(user))
-            .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error);;
+                    res.send(error+  "\n E-mail already registered, please use a different email id" )
+                }
+                )
         }
 
         else {
