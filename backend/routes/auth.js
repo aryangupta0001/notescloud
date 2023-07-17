@@ -60,15 +60,18 @@ router.post("/createuser", [
                         email: req.body.email,
                         password: secPass
                     });
-                    res.send(user);                 // A response for new user registration is sent.
+
+                    const userData = {                          // This object containes the PAYLOAD of the JSON WEB TOKEN
+                        userId: {
+                            id: user.id
+                        }
+                    }
+                    const jwtToken = jwt.sign({ id: user.id }, JWT_TOKEN);              // We can also pass the above object as 1st argument into this method.
+
+                    res.json({ jwtToken });
+
+                    // res.send(user);                 // A response for new user registration is sent., since we are sending JWT to the user, so no need to send this.
                 }
-
-
-
-
-
-
-
 
             } catch (error) {
                 res.status(500).send("Some Error Occured\n" + error);
