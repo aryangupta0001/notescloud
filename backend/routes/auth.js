@@ -16,24 +16,19 @@ router.get("/", (req, res) => {
     res.json(obj)
 })
 
-router.get("/hello", (req, res) => {
-    console.log(req.body);
 
-    res.send(req.body);
-})
+// Endpoint --> Endpoint to CREATE NEW USER by sending data through POST request.
 
+router.post("/createuser",
+    [
+        body("name", "Enter a valid name").isLength({ min: 5 }),
+        body("email", "Enter a valid email").isEmail(),
+        body("password", "Password should be min. 5 characters long").isLength({ min: 5 })
 
-// Endpoint to create new user by sending data through POST request.
+        // In above validations, the second parameter is optional, it is sent to the client when any error occurs (i.e validation fails)    
+    ],
 
-router.post("/createuser", [
-    body("name", "Enter a valid name").isLength({ min: 5 }),
-    body("email", "Enter a valid email").isEmail(),
-    body("password", "Password should be min. 5 characters long").isLength({ min: 5 })
-
-    // In above validations, the second parameter is optional, it is sent to the client when any error occurs (i.e validation fails)    
-],
     async (req, res) => {
-
         // To validate the results according to the model defined.
         const result = validationResult(req);
 
@@ -65,9 +60,7 @@ router.post("/createuser", [
                     }
                     const jwtToken = jwt.sign({ id: user.id }, JWT_TOKEN);              // We can also pass the above object as 1st argument into this method.
 
-                    res.json({ jwtToken });
-
-                    // res.send(user);                 // A response for new user registration is sent., since we are sending JWT to the user, so no need to send this.
+                    res.send(user);                 // A response for new user registration is sent. We can also send the  above generated JWT Token instead of user deetails here.
                 }
 
             } catch (error) {
@@ -82,6 +75,8 @@ router.post("/createuser", [
     }
 )
 
+
+// Endpoint --> Endpoint to Obtain JWT TOKEN by sending data through POST request.
 
 router.post("/userlogin", [
     body("email", "Enter a valid email").isEmail(),
@@ -124,19 +119,17 @@ router.post("/userlogin", [
 )
 
 
-
+// Endpoint --> Endpoint to Authenticate User thorugh JWT Token by sending data through POST request.
 
 router.post("/login", fetchUser, async (req, res) => {
     try {
-        userId = req.id;
-        const user = await User.findById(userId).select("-password");
+        const userId = req.id;
+        const user = await User.findById(userId).select("-password");                   // "--password" argument in .select() method is used to exclude password while selecting the user details.
         res.send(user);
     } catch (error) {
         res.status(500).send("Some Error Occured :-" + error);
         console.error(error.message)
     }
-
-}
-)
+})
 
 module.exports = router
