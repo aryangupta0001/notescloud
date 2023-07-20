@@ -71,7 +71,7 @@ router.post("/createuser", [
                 }
 
             } catch (error) {
-                res.status(500).send("Some Error Occured\n" + error);
+                res.status(500).send("Some Error Occured");
                 console.error(error.message)
             }
         }
@@ -128,11 +128,11 @@ router.post("/userlogin", [
 
 router.post("/login", fetchUser, async (req, res) => {
     try {
-        const userId =  await req.user.id;
+        userId = req.id;
         const user = await User.findById(userId).select("-password");
         res.send(user);
     } catch (error) {
-        res.status(500).send("Some Error Occured\n" + error);
+        res.status(500).send("Some Error Occured :-" + error);
         console.error(error.message)
     }
 

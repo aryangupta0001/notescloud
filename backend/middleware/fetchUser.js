@@ -2,18 +2,20 @@ const JWT_TOKEN = "ItsAryan";
 const jwt = require("jsonwebtoken");
 
 
-const fetchUser = (req, res, next) => {
+const fetchUser = async (req, res, next) => {
     const token = req.header("auth-token");
 
     if(!token){
         res.status(401).send("No valid JWT Token found");
     }
 
-    else{
+    else{   
+        // console.log(token);
         try {
-            const data = jwt.verify(token, JWT_TOKEN);  
-            req.user = data.user;
-            console.log(req.user);
+            const data = await jwt.verify(token, JWT_TOKEN);
+            // console.log("Data :- ", data);
+            req.id = await data.id
+            // console.log("User :- ", data.user);
             next();
         } catch (error) {
             res.status(401).send({error: "Please authenticate using a valid token"});
