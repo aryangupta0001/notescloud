@@ -1,30 +1,32 @@
 const mongoose = require("mongoose");
 
 const NotesSchema = new mongoose.Schema({
-    user: {
-        type: String,
-        required: true
-    },
-
     title: {
         type: String,
         required: true
     },
-
+    
     description: {
         type: String,
         default: null
     },
-
+    
     tags: {
         type: String,
-        default: general
+        default: "general"
+    },
+    
+    user: {
+        type: String,
+        required: true
     },
 
     date: {
         type: Date,
         default: Date.now
     }
+
+    
 })
 
 
