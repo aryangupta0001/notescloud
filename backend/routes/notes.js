@@ -55,7 +55,7 @@ router.get("/fetchnote", fetchUser, async (req, res) => {
 
     try {
         const note = await Note.find({ user: req.id });
-        res.json(note);                 // A response for new user registration is sent. We can also send the  above generated JWT Token instead of user deetails here.
+        res.json(note);
     }
     catch (error) {
         res.status(500).send("Some Error Occured");
@@ -64,5 +64,55 @@ router.get("/fetchnote", fetchUser, async (req, res) => {
 }
 )
 
+
+router.put("/updatenote/:id", fetchUser, async (req, res) => {
+    const note = await Note.find({ user: req.id });
+
+    if (note.length > 0) {
+        let found = false
+        let newNote = {};
+
+        try {
+            note.forEach(element => {
+                if (found) {
+                    throw new Error("BreakError");
+                }
+
+                console.log(element._id.toString().split("\"")[0]);
+                if (element._id.toString().split("\"")[0] === req.params.id.toString()) {
+                    if (req.body.title) {
+                        newNote.title = req.body.title;
+                    }
+
+                    if (req.body.description) {
+                        newNote.description = req.body.description;
+                    }
+
+                    if (req.body.tag) {
+                        newNote.tag = req.body.tag;
+                    }
+
+                    found = true;
+                }
+            });
+            res.send("No such note was found");
+        } catch (error) {
+            if (error.message === "BreakError") {
+
+                Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
+                    .then(
+                        res.send(newNote)
+                    );
+            }
+
+            else {
+                console.log(error)
+            }
+        }
+    }
+    else {
+        res.send("User does not have any note");
+    }
+})
 
 module.exports = router
