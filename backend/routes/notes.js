@@ -18,11 +18,12 @@ router.get("/", (req, res) => {
 
 // Endpoint 1 --> Endpoint to Create Note of a user by sending data through POST request.
 
-router.post("/createnote",
-[
-    body("title", "Enter a valid title").isLength({ min: 5 })
+router.post("/createnote", fetchUser,
+    [
+        body("title", "Enter a valid title").isLength({ min: 5 })
         // In above validations, the second parameter is optional, it is sent to the client when any error occurs (i.e validation fails)    
     ],
+
 
     async (req, res) => {
         // To validate the results according to the model defined.
@@ -31,9 +32,9 @@ router.post("/createnote",
         if (result.isEmpty()) {         // checks whether the resullt object is empty or not, if it is empty,  it means there are no validation errors & all values are valid.
 
             try {
-                const { title, description, tag, user } = req.body;
+                const { title, description, tag } = req.body;
                 const note = await Note.create({            // The .create() method calls the .save() method of mongoose to save the user as a new document into databasse.
-                    title, description, tag, user
+                    title, description, tag, user: req.id
                 });
                 res.send(note);                 // A response for new user registration is sent. We can also send the  above generated JWT Token instead of user deetails here.
             }
@@ -61,7 +62,6 @@ router.get("/fetchnote", fetchUser, async (req, res) => {
         console.error(error.message)
     }
 }
-
 )
 
 
