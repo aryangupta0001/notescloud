@@ -66,11 +66,48 @@ router.get("/fetchnote", fetchUser, async (req, res) => {
 
 
 router.put("/updatenote/:id", fetchUser, async (req, res) => {
-    const note = await Note.find({ user: req.id });
 
+    const newNote = {};
+    if (req.body.title) {
+        newNote.title = req.body.title;
+    }
+
+    if (req.body.description) {
+        newNote.description = req.body.description;
+    }
+
+    if (req.body.tags) {
+        newNote.tags = req.body.tags;
+    }
+
+
+
+    // Method 1 -->
+    let noteExists = await Note.findById(req.params.id);
+
+    if (noteExists) {
+        if (noteExists.user === req.id) {
+            Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
+                .then(
+                    res.send(newNote)
+                );
+
+        }
+        else {
+            res.status(401).send("You do NOT have access to this note");
+        }
+    }
+    else {
+        res.status(404).send("Note NOT found");
+    }
+
+
+
+    /*
+
+    // Method 2 --> 
     if (note.length > 0) {
         let found = false
-        let newNote = {};
 
         try {
             note.forEach(element => {
@@ -80,22 +117,10 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
 
                 console.log(element._id.toString().split("\"")[0]);
                 if (element._id.toString().split("\"")[0] === req.params.id.toString()) {
-                    if (req.body.title) {
-                        newNote.title = req.body.title;
-                    }
-
-                    if (req.body.description) {
-                        newNote.description = req.body.description;
-                    }
-
-                    if (req.body.tag) {
-                        newNote.tag = req.body.tag;
-                    }
-
                     found = true;
                 }
             });
-            res.send("No such note was found");
+            res.send("Note not found");
         } catch (error) {
             if (error.message === "BreakError") {
 
@@ -104,7 +129,6 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
                         res.send(newNote)
                     );
             }
-
             else {
                 console.log(error)
             }
@@ -113,6 +137,8 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
     else {
         res.send("User does not have any note");
     }
+
+    */
 })
 
 module.exports = router
