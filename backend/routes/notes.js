@@ -65,6 +65,8 @@ router.get("/fetchnote", fetchUser, async (req, res) => {
 )
 
 
+// Endpoint 3 --> Endpoint to update a note thorough PUT request.
+
 router.put("/updatenote/:id", fetchUser, async (req, res) => {
 
     const newNote = {};
@@ -104,18 +106,17 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
 
 
     /*
-
+    
     // Method 2 --> 
     if (note.length > 0) {
         let found = false
-
+        
         try {
             note.forEach(element => {
                 if (found) {
                     throw new Error("BreakError");
                 }
 
-                console.log(element._id.toString().split("\"")[0]);
                 if (element._id.toString().split("\"")[0] === req.params.id.toString()) {
                     found = true;
                 }
@@ -123,22 +124,54 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
             res.send("Note not found");
         } catch (error) {
             if (error.message === "BreakError") {
-
+                
                 Note.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
-                    .then(
-                        res.send(newNote)
+                .then(
+                    res.send(newNote)
                     );
-            }
-            else {
-                console.log(error)
+                }
+                else {
+                    console.log(error)
+                }
             }
         }
-    }
-    else {
-        res.send("User does not have any note");
-    }
+        else {
+            res.send("User does not have any note");
+        }
 
     */
+})
+
+
+// Endpoint 4 --> Endpoint to delete a note thorough DELETE request.
+
+router.delete("/deletenote/:id", fetchUser, async (req, res) => {
+    try {
+        let noteExists = await Note.findById(req.params.id);
+
+        if (noteExists) {
+            if (noteExists.user === req.id) {
+
+                Note.findByIdAndDelete(req.params.id)
+                    .then(
+                        res.send("Node Deleted")
+                    );
+
+            }
+            else {
+                res.status(401).send("You do NOT have access to this note");
+            }
+        }
+        else {
+            res.status(404).send("Note NOT found");
+        }
+
+    }
+    
+    catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 })
 
 module.exports = router
