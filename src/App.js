@@ -1,12 +1,26 @@
+// import { Route, Router, Routes } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+
 import './App.css';
+import About from './components/About';
+import Navbar from './components/Navbar';
+import Home from "./components/Home";
 
 function App() {
   return (
-    <div className="App">
-      <h1>
-        Welcome to CloudNotes
-      </h1>
-    </div>
+    <>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path='/about' element={<About />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
 
