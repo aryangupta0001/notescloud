@@ -1,4 +1,7 @@
-// import { Route, Router, Routes } from 'react-router-dom';
+// import { useState, createContext } from "react";
+// const UserContext = createContext();
+
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,10 +12,14 @@ import './App.css';
 import About from './components/About';
 import Navbar from './components/Navbar';
 import Home from "./components/Home";
+import NoteState from "./context/notes/NoteState";
 
 function App() {
+  // const [user, setUser] = useState("Jesse Hall");
+
   return (
-    <>
+    <NoteState>
+
       <Router>
         <Navbar />
         <Routes>
@@ -20,7 +27,8 @@ function App() {
           <Route path='/about' element={<About />} />
         </Routes>
       </Router>
-    </>
+    </NoteState>
+      
   );
 }
 
