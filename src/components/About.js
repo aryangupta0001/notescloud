@@ -6,8 +6,7 @@ const About = () => {
   return (
     <div>
       <h1>
-        This is About {a.name}. <br />
-        He is {a.age} years old.
+        
       </h1>
     </div>
   )
