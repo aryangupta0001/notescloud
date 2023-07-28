@@ -3,8 +3,8 @@ const express = require('express');
 
 connectToMongo();
 
-const app = express();
 const PORT = 5500;
+const app = express();
 
 app.use(express.json());        // Use this middleware to parse incoming requests with JSON Payload.
 
