@@ -8,11 +8,13 @@ const Notes = () => {
 
     return (
         <>
-            {
-                notes.map((element) => (
-                    <NoteItem note={element} key={element._id} />
-                ))
-            }
+            <div className="row my-3">
+                {
+                    notes.map((element) => (
+                        <NoteItem note={element} key={element._id} />
+                    ))
+                }
+            </div>
         </>
     )
 }
