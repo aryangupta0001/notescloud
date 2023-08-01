@@ -3,6 +3,8 @@ import noteContext from "./noteContext"
 
 const NoteState = (props) => {
 
+    const HOST = "http://localhost:5000";
+
     let initialNotes = [];
 
     initialNotes = [
@@ -47,7 +49,26 @@ const NoteState = (props) => {
     const [notes, setNotes] = useState(initialNotes);
 
 
-    const addNote = (title, description, tag) => {
+    // CRUD Operations :-
+
+    const addNote = async (title, description, tag) => {
+
+        // Backend API Call :-
+
+        const response = await fetch(`${HOST}/api/notes/createnote${id}`, {
+
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhlZmJhMTRlYzgzY2I0NzIyNmMyMSIsImlhdCI6MTY4OTk2NTcyOX0.JHHUjzM51gvVA2kxwnvd309pR7Gmetn7xxnYHxH1Qw4"
+            },
+            body: JSON.stringify({title, description, tag}),
+        });
+        const json = response.json();
+
+
+        // Frontend :-
+
         const note = {
             "_id": "64c3dcf078268980b0d6b39",
             "title": title,
@@ -61,14 +82,39 @@ const NoteState = (props) => {
         setNotes(notes.concat(note))
     }
 
-    const editNote = (id) => {
+    const editNote = async (id, title, descripiton, tag) => {
 
+        // Backend API Call :-
+
+        const response = await fetch(`${HOST}/api/notes/updatenote/${id}`, {
+
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhlZmJhMTRlYzgzY2I0NzIyNmMyMSIsImlhdCI6MTY4OTk2NTcyOX0.JHHUjzM51gvVA2kxwnvd309pR7Gmetn7xxnYHxH1Qw4"
+            },
+            body: JSON.stringify({title, description, tag}),
+        });
+        const json = response.json();
+
+
+        // Frontend :-
+
+        for (let i = 0; i < notes.length; i++) {
+            if (notes[i]._id === id) {
+                notes[i].title = title;
+                notes[i].description = descripiton;
+                notes[i].tags = tag;
+
+            }
+        }
     }
+
     const deleteNote = (id) => {
-        // const newNotes = notes.filter((note) => { return note._id !== id })
-        // setNotes(newNotes)
         setNotes(notes.filter((note) => { return note._id !== id }))
     }
+
+
 
 
 
