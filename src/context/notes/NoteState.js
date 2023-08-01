@@ -50,9 +50,9 @@ const NoteState = (props) => {
     const addNote = (title, description, tag) => {
         const note = {
             "_id": "64c3dcf078268980b0d6b39",
-            "title": "Hello",
-            "description": "This is 4th note [ADDDED]",
-            "tags": "general",
+            "title": title,
+            "description": description,
+            "tags": tag,
             "user": "64b8efba14ec83cb47226c21",
             "date": "2023-07-28T15:21:20.673Z",
             "__v": 0
