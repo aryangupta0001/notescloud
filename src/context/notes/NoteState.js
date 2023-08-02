@@ -51,7 +51,7 @@ const NoteState = (props) => {
 
     // CRUD Operations :-
 
-    const addNote = async (title, description, tag) => {
+    const addNote = async (id, title, description, tag) => {
 
         // Backend API Call :-
 
@@ -93,7 +93,7 @@ const NoteState = (props) => {
                 "Content-Type": "application/json",
                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhlZmJhMTRlYzgzY2I0NzIyNmMyMSIsImlhdCI6MTY4OTk2NTcyOX0.JHHUjzM51gvVA2kxwnvd309pR7Gmetn7xxnYHxH1Qw4"
             },
-            body: JSON.stringify({title, description, tag}),
+            body: JSON.stringify({title, descripiton, tag}),
         });
         const json = response.json();
 
