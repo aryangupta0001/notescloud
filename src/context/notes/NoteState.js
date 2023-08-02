@@ -3,7 +3,7 @@ import noteContext from "./noteContext"
 
 const NoteState = (props) => {
 
-    const HOST = "http://localhost:5000";
+    const HOST = "http://localhost:5500";
 
     let initialNotes = [];
 
@@ -55,14 +55,14 @@ const NoteState = (props) => {
 
         // Backend API Call :-
 
-        const response = await fetch(`${HOST}/api/notes/createnote${id}`, {
+        const response = await fetch(`${HOST}/api/notes/createnote`, {
 
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhlZmJhMTRlYzgzY2I0NzIyNmMyMSIsImlhdCI6MTY4OTk2NTcyOX0.JHHUjzM51gvVA2kxwnvd309pR7Gmetn7xxnYHxH1Qw4"
             },
-            body: JSON.stringify({title, description, tag}),
+            body: JSON.stringify({title, description, tag})
         });
         const json = response.json();
 
@@ -93,7 +93,7 @@ const NoteState = (props) => {
                 "Content-Type": "application/json",
                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0YjhlZmJhMTRlYzgzY2I0NzIyNmMyMSIsImlhdCI6MTY4OTk2NTcyOX0.JHHUjzM51gvVA2kxwnvd309pR7Gmetn7xxnYHxH1Qw4"
             },
-            body: JSON.stringify({title, descripiton, tag}),
+            body: JSON.stringify({title, descripiton, tag})
         });
         const json = response.json();
 
