@@ -6,10 +6,10 @@ const cors = require("cors");
 
 connectToMongo();
 
-const PORT = 5500;
+const PORT = 5000;
 const app = express();
 
-app.use(cors);
+app.use(cors());
 app.use(express.json());        // Use this middleware to parse incoming requests with JSON Payload.
 
 // Available Routes :-
