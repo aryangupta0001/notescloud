@@ -11,7 +11,7 @@ const Notes = () => {
 
     useEffect(() => {
         fetchNotes();
-    })
+    }, [])
 
     return (
         <>

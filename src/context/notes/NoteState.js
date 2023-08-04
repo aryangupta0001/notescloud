@@ -31,8 +31,9 @@ const NoteState = (props) => {
             const json = await response.json();
 
             console.log(json);
+            setNotes(json);
         }
-        catch (error) {
+        catch (error) { 
             console.log("Error fetching notes:", error.message);
         }
     }
