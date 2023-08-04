@@ -58,8 +58,8 @@ router.get("/fetchnote", fetchUser, async (req, res) => {
         res.json(note);
     }
     catch (error) {
-        res.status(500).send("Some Error Occured");
-        console.error(error.message)
+        // res.status(500).send("Some Error Occured");
+        console.log(error.message)
     }
 }
 )

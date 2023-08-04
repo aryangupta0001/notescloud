@@ -7,11 +7,11 @@ import noteContext from '../context/notes/noteContext'
 
 const Notes = () => {
     const context = useContext(noteContext);
-    const { notes, getNotes } = context;
+    const { notes, fetchNotes } = context;
 
     useEffect(() => {
-        getNotes();
-    }, [])
+        fetchNotes();
+    })
 
     return (
         <>
