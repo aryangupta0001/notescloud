@@ -11,6 +11,7 @@ const Notes = () => {
 
     useEffect(() => {
         fetchNotes();
+        // eslint-disable-next-line
     }, [])
 
     return (

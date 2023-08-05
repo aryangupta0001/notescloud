@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import noteContext from '../context/notes/noteContext'
 
 
@@ -21,7 +21,7 @@ const NoteItem = (props) => {
                     </div>
 
                     <p className="card-text">{note.description}</p>
-                    <p className="card-text">#{note.tags}</p>
+                    <p className="card-text">#{note.tag}</p>
                 </div>
             </div>
         </div>
