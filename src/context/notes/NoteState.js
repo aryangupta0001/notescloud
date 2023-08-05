@@ -20,10 +20,9 @@ const NoteState = (props) => {
 
         try {
             const response = await fetch(`${HOST}/api/notes/fetchnote/`, {
-
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json", 
+                    "Content-Type": "application/json",
                     "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2QxOGNjYmZkNGUyYzJlMGZiN2VjNyIsImlhdCI6MTY5MTE2OTQ5MX0.95c5Twcm4FudjjQzRHrVKJ88gmhGtedctHb8OB5fbKs"
                 }
             });
@@ -31,7 +30,7 @@ const NoteState = (props) => {
             const json = await response.json();
             setNotes(json);
         }
-        catch (error) { 
+        catch (error) {
             console.log("Error fetching notes:", error.message);
         }
     }
@@ -40,8 +39,7 @@ const NoteState = (props) => {
 
         // Backend API Call :-
 
-        const response = await fetch(`${HOST}/api/notes/createnote`, {
-
+        await fetch(`${HOST}/api/notes/createnote`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -49,10 +47,6 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const json = await response.json();
-        console.log(json);
-
-
 
         // Frontend :-
 
@@ -66,7 +60,7 @@ const NoteState = (props) => {
 
         const response = await fetch(`${HOST}/api/notes/updatenote/${id}`, {
 
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2QxOGNjYmZkNGUyYzJlMGZiN2VjNyIsImlhdCI6MTY5MTE2OTQ5MX0.95c5Twcm4FudjjQzRHrVKJ88gmhGtedctHb8OB5fbKs"
@@ -80,22 +74,15 @@ const NoteState = (props) => {
 
         // Frontend :-
 
-        for (let i = 0; i < notes.length; i++) {
-            if (notes[i]._id === id) {
-                notes[i].title = title;
-                notes[i].description = descripiton;
-                notes[i].tags = tag;
-
-            }
-        }
+        fetchNotes();
     }
 
-    const deleteNote = async(id) => {
+    const deleteNote = async (id) => {
 
         // Backend API call :-
-        
+
         await fetch(`${HOST}/api/notes/deletenote/${id}`, {
-            
+
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -106,11 +93,6 @@ const NoteState = (props) => {
         // Updating Notes on Frontend :-
         fetchNotes();
     }
-
-
-
-
-
 
     return (
         <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes }}>
