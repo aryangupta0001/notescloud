@@ -11,7 +11,7 @@ const NotesSchema = new mongoose.Schema({
         default: null
     },
     
-    tags: {
+    tag: {
         type: String,
         default: "general"
     },
