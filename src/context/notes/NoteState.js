@@ -57,7 +57,7 @@ const NoteState = (props) => {
         // Frontend :-
 
         fetchNotes();
-        
+
     }
 
     const editNote = async (id, title, descripiton, tag) => {
@@ -94,7 +94,7 @@ const NoteState = (props) => {
 
         // Backend API call :-
         
-        const response = await fetch(`${HOST}/api/notes/deletenote/${id}`, {
+        await fetch(`${HOST}/api/notes/deletenote/${id}`, {
             
             method: "DELETE",
             headers: {
