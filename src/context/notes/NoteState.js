@@ -23,7 +23,7 @@ const NoteState = (props) => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2QxOGNjYmZkNGUyYzJlMGZiN2VjNyIsImlhdCI6MTY5MTE2OTQ5MX0.95c5Twcm4FudjjQzRHrVKJ88gmhGtedctHb8OB5fbKs"
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTI1MTIzMX0.P5BMeW0KDorZl0CzaK-NeTSFUi5bEBuqi2qxjXeAq-Q"
                 }
             });
 
@@ -43,7 +43,7 @@ const NoteState = (props) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2QxOGNjYmZkNGUyYzJlMGZiN2VjNyIsImlhdCI6MTY5MTE2OTQ5MX0.95c5Twcm4FudjjQzRHrVKJ88gmhGtedctHb8OB5fbKs"
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTI1MTIzMX0.P5BMeW0KDorZl0CzaK-NeTSFUi5bEBuqi2qxjXeAq-Q"
             },
             body: JSON.stringify({ title, description, tag })
         });
@@ -63,7 +63,7 @@ const NoteState = (props) => {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2QxOGNjYmZkNGUyYzJlMGZiN2VjNyIsImlhdCI6MTY5MTE2OTQ5MX0.95c5Twcm4FudjjQzRHrVKJ88gmhGtedctHb8OB5fbKs"
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTI1MTIzMX0.P5BMeW0KDorZl0CzaK-NeTSFUi5bEBuqi2qxjXeAq-Q"
             },
             body: JSON.stringify({ title, descripiton, tag })
         });
@@ -86,7 +86,7 @@ const NoteState = (props) => {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2QxOGNjYmZkNGUyYzJlMGZiN2VjNyIsImlhdCI6MTY5MTE2OTQ5MX0.95c5Twcm4FudjjQzRHrVKJ88gmhGtedctHb8OB5fbKs"
+                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTI1MTIzMX0.P5BMeW0KDorZl0CzaK-NeTSFUi5bEBuqi2qxjXeAq-Q"
             }
         });
 
