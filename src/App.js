@@ -1,5 +1,6 @@
-// import { useState, createContext } from "react";
-// const UserContext = createContext();
+import { useContext } from "react";
+import noteContext from './context/notes/noteContext'
+
 
 
 import {
@@ -13,14 +14,21 @@ import About from './components/About';
 import Navbar from './components/Navbar';
 import Home from "./components/Home";
 import NoteState from "./context/notes/NoteState";
+import Alert from "./components/Alert";
 
 function App() {
   // const [user, setUser] = useState("Jesse Hall");
+  const context = useContext(noteContext);
+  const { showAlert } = context;
+
+
 
   return (
     <NoteState>
 
       <Router>
+        <Alert alert={showAlert} />
+
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -28,7 +36,7 @@ function App() {
         </Routes>
       </Router>
     </NoteState>
-      
+
   );
 }
 

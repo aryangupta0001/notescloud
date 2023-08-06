@@ -32,7 +32,6 @@ const Notes = () => {
 
     const handleUpdate = (e) => {
         refClose.current.click();
-        console.log("Note = ", note);
         editNote(note.id, note.title, note.description, note.tag);
     }
 

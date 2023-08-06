@@ -8,6 +8,8 @@ const NoteState = (props) => {
     let initialNotes = [];
 
     const [notes, setNotes] = useState(initialNotes);
+    const [alert, setAlert] = useState(null);
+
 
 
     // CRUD Operations :-
@@ -56,7 +58,7 @@ const NoteState = (props) => {
 
         // Backend API Call :-
 
-        const response = await fetch(`${HOST}/api/notes/updatenote/${id}`, {
+        await fetch(`${HOST}/api/notes/updatenote/${id}`, {
 
             method: "PUT",
             headers: {
@@ -65,8 +67,6 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
-        const json = await response.json();
-        console.log(json);
 
         // Frontend :-
         fetchNotes();
@@ -82,15 +82,26 @@ const NoteState = (props) => {
             headers: {
                 "Content-Type": "application/json",
                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
-            }   
+            }
         });
 
         // Updating Notes on Frontend :-
         fetchNotes();
     }
 
+
+    const showAlert = (title) => {
+        setAlert({
+            title: title
+        })
+
+        setTimeout(() => {
+            setAlert(null);
+        }, 1000);
+    }
+
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes }}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert }}>
             {props.children}
         </noteContext.Provider>
     )
