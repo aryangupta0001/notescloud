@@ -78,8 +78,8 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
         newNote.description = req.body.description;
     }
 
-    if (req.body.tags) {
-        newNote.tags = req.body.tags;
+    if (req.body.tag) {
+        newNote.tag = req.body.tag;
     }
 
 
@@ -96,10 +96,12 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
 
         }
         else {
+            console.log("You do NOT have access to this note");
             res.status(401).send("You do NOT have access to this note");
         }
     }
     else {
+        console.log("Note NOT found");
         res.status(404).send("Note NOT found");
     }
 

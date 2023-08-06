@@ -52,7 +52,7 @@ const NoteState = (props) => {
 
     }
 
-    const editNote = async (id, title, descripiton, tag) => {
+    const editNote = async (id, title, description, tag) => {
 
         // Backend API Call :-
 
@@ -63,7 +63,7 @@ const NoteState = (props) => {
                 "Content-Type": "application/json",
                 "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
             },
-            body: JSON.stringify({ title, descripiton, tag })
+            body: JSON.stringify({ title, description, tag })
         });
         const json = await response.json();
         console.log(json);
