@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 
@@ -6,8 +6,10 @@ import noteContext from '../context/notes/noteContext'
 
 
 const Notes = () => {
+    const [note, setNote] = useState({ id: "", title: "", description: "", tag: "" });
+
     const context = useContext(noteContext);
-    const { notes, fetchNotes } = context;
+    const { notes, fetchNotes, editNote } = context;
 
     useEffect(() => {
         fetchNotes();
@@ -16,9 +18,22 @@ const Notes = () => {
 
 
     const ref = useRef(null)
+    const refClose = useRef(null);
 
-    const updateNote = (note) => {
+    const updateNote = (current_note) => {
         ref.current.click();
+        setNote({ id: current_note._id, title: current_note.title, description: current_note.description, tag: current_note.tag });
+
+    }
+
+    const onChange = (e) => {
+        setNote({ ...note, [e.target.name]: e.target.value })
+    }
+
+    const handleUpdate = (e) => {
+        refClose.current.click();
+        console.log("Note = ", note);
+        editNote(note.id, note.title, note.description, note.tag);
     }
 
 
@@ -26,10 +41,9 @@ const Notes = () => {
         <>
             <AddNote />
 
-            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" ref={ref}>
+            <button ref={ref} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                 Launch demo modal
             </button>
-
 
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -41,23 +55,39 @@ const Notes = () => {
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+
+
                         <div className="modal-body">
-                            ...
+                            <form className="my-3">
+                                <div className="mb-3">
+                                    <label htmlFor="title" className="form-label">Title</label>
+                                    <input type="text" className="form-control" id="title" name='title' onChange={onChange} value={note.title} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="desc" className="form-label">Description</label>
+                                    <input type="text" className="form-control" id="descripiton" name='description' onChange={onChange} value={note.description} />
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="tag" className="form-label">Tag</label>
+                                    <input type="text" className="form-control" id="tag" name='tag' onChange={onChange} value={note.tag} />
+                                </div>
+                            </form>
                         </div>
+
+
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={handleUpdate}>Update Note</button>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-
             <div className="row my-3">
                 {
-                    notes.map((element) => (
-                        <NoteItem note={element} key={element._id} updateNote={updateNote} />
+                    notes.map((note) => (
+                        <NoteItem current_note={note} key={note._id} updateNote={updateNote} />
                     ))
                 }
             </div>
