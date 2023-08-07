@@ -20,7 +20,7 @@ const NoteItem = (props) => {
                     </div>
 
                     <p className="card-text">{current_note.description}</p>
-                    <p className="card-text">#{current_note.tag}</p>
+                    <p className="card-text">{current_note.tag.length>0 && "#" + current_note.tag}</p>
                 </div>
             </div>
         </div >
