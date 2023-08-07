@@ -40,8 +40,7 @@ const Notes = () => {
         <>
             <AddNote />
 
-            <button ref={ref} type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-                Launch demo modal
+            <button ref={ref} type="button" className="btn d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" >
             </button>
 
 

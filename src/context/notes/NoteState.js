@@ -49,7 +49,8 @@ const NoteState = (props) => {
                 body: JSON.stringify({ title, description, tag })
             });
 
-            showAlert("Updated");
+            showAlert("Added");
+
         } catch (error) {
             console.log(error);
         }
@@ -79,7 +80,7 @@ const NoteState = (props) => {
         } catch (error) {
             console.log(error);
         }
-        
+
         // Frontend :-
         fetchNotes();
     }
@@ -88,18 +89,23 @@ const NoteState = (props) => {
 
         // Backend API call :-
 
-        await fetch(`${HOST}/api/notes/deletenote/${id}`, {
+        try {
+            await fetch(`${HOST}/api/notes/deletenote/${id}`, {
 
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
-            }
-        });
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
+                }
+            });
 
-        // Updating Notes on Frontend :-
+            showAlert("Deleted");
 
-        showAlert("Deleted");
+        } catch (error) {
+            console.log(error);
+        }
+
+        // Frontend :-
         fetchNotes();
     }
 

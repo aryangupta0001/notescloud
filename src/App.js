@@ -15,8 +15,10 @@ function App() {
   return (
     <NoteState>
       <Router>
-        <Navbar />
-        <Alert />
+        <div className="d-flex flex-column sticky-top">
+          <Navbar />
+          <Alert />
+        </div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='/about' element={<About />} />
