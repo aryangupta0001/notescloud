@@ -1,20 +1,13 @@
-// import React from 'react'
+import React, { useContext } from 'react'
+import noteContext from '../context/notes/noteContext'
 
-// export default function Alert(props) {
-//     return (
-//         props.alert && <div className={`alert alert-${props.alert.type} alert-dismissible fade show`} role="alert">
-//             <strong>{props.alert.head}</strong> {props.alert.body}
-//         </div>
-//     )
-// }
-
-
-import React from 'react'
-
-const Alert = (props) => {
+const Alert = () => {
+    const context = useContext(noteContext);
+    const { alert } = context;
+    console.log(alert);
     return (
-        props.alert && <div className={`alert alert-dismissible fade show`} role="alert">
-            <strong>{props.showAlert.title}</strong>
+        alert && <div className={`alert alert-success alert-dismissible fade show`} role="alert">
+            Note has been <strong>{alert.operation}</strong>
         </div>
     )
 }

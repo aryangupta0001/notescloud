@@ -9,7 +9,7 @@ const Notes = () => {
     const [note, setNote] = useState({ id: "", title: "", description: "", tag: "" });
 
     const context = useContext(noteContext);
-    const { notes, fetchNotes, editNote } = context;
+    const { notes, fetchNotes, editNote, showAlert } = context;
 
     useEffect(() => {
         fetchNotes();

@@ -39,17 +39,22 @@ const NoteState = (props) => {
 
         // Backend API Call :-
 
-        await fetch(`${HOST}/api/notes/createnote`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
-            },
-            body: JSON.stringify({ title, description, tag })
-        });
+        try {
+            await fetch(`${HOST}/api/notes/createnote`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
+                },
+                body: JSON.stringify({ title, description, tag })
+            });
+
+            showAlert("Updated");
+        } catch (error) {
+            console.log(error);
+        }
 
         // Frontend :-
-
         fetchNotes();
 
     }
@@ -58,16 +63,23 @@ const NoteState = (props) => {
 
         // Backend API Call :-
 
-        await fetch(`${HOST}/api/notes/updatenote/${id}`, {
+        try {
+            await fetch(`${HOST}/api/notes/updatenote/${id}`, {
 
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
-            },
-            body: JSON.stringify({ title, description, tag })
-        });
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
+                },
+                body: JSON.stringify({ title, description, tag })
+            });
 
+            showAlert("Updated");
+
+        } catch (error) {
+            console.log(error);
+        }
+        
         // Frontend :-
         fetchNotes();
     }
@@ -86,22 +98,24 @@ const NoteState = (props) => {
         });
 
         // Updating Notes on Frontend :-
+
+        showAlert("Deleted");
         fetchNotes();
     }
 
 
-    const showAlert = (title) => {
+    const showAlert = (operation) => {
         setAlert({
-            title: title
+            operation: operation
         })
 
         setTimeout(() => {
             setAlert(null);
-        }, 1000);
+        }, 750);
     }
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert }}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, alert }}>
             {props.children}
         </noteContext.Provider>
     )
