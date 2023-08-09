@@ -38,7 +38,7 @@ const Signup = () => {
     }
     else {
       alert(json.error);
-      navigate("/signup");
+      navigate("/login");
     }
     console.log(json);
   }
@@ -66,9 +66,9 @@ const Signup = () => {
           </div>
           <div className="mb-3 d-flex">
             <label htmlFor="password" className="form-label" style={{ width: "11%" }}>Confirm Password</label>
-            <input type="password" className="form-control w-25 mx-3" id="cnfpassword" name='cnfpassword' value={credentials.cnfpassword} onChange={onChange} />
+            <input type="password" className="form-control w-25 mx-3" id="cnfpassword" name='cnfpassword' value={credentials.cnfpassword} onChange={onChange} autoComplete='on' />
             <span className={`${credentials.cnfpassword.length >= 5 && 'd-none'} text-danger`}>[Min. 5 characters]</span>
-            <span className={`${(credentials.cnfpassword.length>0 && credentials.password !== credentials.cnfpassword) ? "d-block" : "d-none"} text-danger`}>&emsp;[Password & Confirm Password do not match]</span>
+            <span className={`${(credentials.cnfpassword.length > 0 && credentials.password !== credentials.cnfpassword) ? "d-block" : "d-none"} text-danger`}>&emsp;[Password & Confirm Password do not match]</span>
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </div>
