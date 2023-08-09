@@ -31,6 +31,7 @@ router.post("/createuser",
     async (req, res) => {
         // To validate the results according to the model defined.
         const result = validationResult(req);
+        let success = false;
 
         if (result.isEmpty()) {         // checks whether the resullt object is empty or not, if it is empty,  it means there are no validation errors & all values are valid.
 
@@ -38,7 +39,8 @@ router.post("/createuser",
                 const user = await User.findOne({ email: req.body.email });         // It finds for the  document with same e-mail idd that is provided in current request.
 
                 if (user) {             // If any doocument with current e-mail id is available in collection, it means it is duplicate.
-                    return res.status(400).json({ error: "A user with this email already exists" });
+                    console.log({ success, error: "A user with this email already exists" });
+                    return res.status(400).json({ success, error: "A user with this email already exists" });
                 }
 
                 else {
@@ -60,17 +62,19 @@ router.post("/createuser",
                     }
                     const jwtToken = jwt.sign({ id: user.id }, JWT_TOKEN);              // We can also pass the above object as 1st argument into this method.
 
-                    res.send(user);                 // A response for new user registration is sent. We can also send the  above generated JWT Token instead of user deetails here.
+                    success = true;
+
+                    res.send({ success, user });                 // A response for new user registration is sent. We can also send the  above generated JWT Token instead of user deetails here.
                 }
 
             } catch (error) {
-                res.status(500).send("Some Error Occured");
-                console.error(error.message)
+                res.status(500).send(success, error.message);
+                console.error(success, error.message)
             }
         }
 
         else {
-            res.send({ errors: result.array() });
+            res.send({ success, errors: result.array() });
         }
     }
 )
@@ -86,6 +90,9 @@ router.post("/userlogin", [
 ],
     async (req, res) => {
         const result = validationResult(req);
+
+        let success = false;
+
         if (result.isEmpty()) {
             const { email, password } = req.body;
 
@@ -96,23 +103,25 @@ router.post("/userlogin", [
 
                     if (passMatch) {
                         const jwtToken = jwt.sign({ id: user.id }, JWT_TOKEN);
-                        res.json({ jwtToken });
+                        success = true;
+                        res.json({ success, jwtToken });
                     }
                     else {
-                        return res.status(400).json({ error: "Invalid credentials" });
+                        return res.status(400).json({ success, error: "Invalid credentials" });
                     }
                 }
+
                 else {
-                    return res.status(400).json({ error: "Invalid credentials" });
+                    return res.status(400).json({ success, error: "Invalid credentials" });
                 }
             } catch (error) {
-                res.status(500).send("Some Error Occured\n" + error);
-                console.error(error.message)
+                res.status(500).send({ success, error });
+                console.error(success, error.message)
             }
         }
 
         else {
-            res.status(400).send({ errors: result.array() });
+            res.status(400).send({ success, errors: result.array() });
         }
 
     }
@@ -122,13 +131,17 @@ router.post("/userlogin", [
 // Endpoint --> Endpoint to Authenticate User thorugh JWT Token by sending data through POST request.
 
 router.post("/login", fetchUser, async (req, res) => {
+
+    let success = false;
+    
     try {
         const userId = req.id;
         const user = await User.findById(userId).select("-password");                   // "--password" argument in .select() method is used to exclude password while selecting the user details.
         res.send(user);
-    } catch (error) {
-        res.status(500).send("Some Error Occured :-" + error);
-        console.error(error.message)
+    }
+    catch (error) {
+        console.error(success, error.message)
+        res.status(500).send({success, erro r});
     }
 })
 
