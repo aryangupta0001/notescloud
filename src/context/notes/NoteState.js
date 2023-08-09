@@ -1,6 +1,7 @@
 import { useState } from "react"
 import noteContext from "./noteContext"
 
+
 const NoteState = (props) => {
 
     const HOST = "http://127.0.0.1:5000";
@@ -8,7 +9,7 @@ const NoteState = (props) => {
     let initialNotes = [];
 
     const [notes, setNotes] = useState(initialNotes);
-    const [alert, setAlert] = useState(null);
+    const [alertObj, setAlert] = useState(null);
 
 
 
@@ -125,6 +126,7 @@ const NoteState = (props) => {
     // User Login & Authentication :-
 
     const userLogin = async (email, password) => {
+
         const response = await fetch(`${HOST}/api/auth/userlogin`, {
 
             method: "POST",
@@ -137,13 +139,19 @@ const NoteState = (props) => {
 
         const json = await response.json();
 
+        if (json.success) {
+            localStorage.setItem("token", json.authtoken);
+        }
+        else{
+            alert("Invalid Credentials")
+        }
         console.log(json);
 
     }
 
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, alert, userLogin }}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, alertObj, userLogin }}>
             {props.children}
         </noteContext.Provider>
     )

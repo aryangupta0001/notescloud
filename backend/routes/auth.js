@@ -74,7 +74,7 @@ router.post("/createuser",
         }
 
         else {
-            res.send({ success, errors: result.array() });
+            res.send({ success, error: "Input Data Invalid"});
         }
     }
 )
@@ -116,12 +116,13 @@ router.post("/userlogin", [
                 }
             } catch (error) {
                 res.status(500).send({ success, error });
-                console.error(success, error.message)
+                console.error(success, error.message);
             }
         }
 
         else {
             res.status(400).send({ success, errors: result.array() });
+            console.log(success, result.array());
         }
 
     }
@@ -141,7 +142,7 @@ router.post("/login", fetchUser, async (req, res) => {
     }
     catch (error) {
         console.error(success, error.message)
-        res.status(500).send({success, erro r});
+        res.status(500).send({success, error});
     }
 })
 

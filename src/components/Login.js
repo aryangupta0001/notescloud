@@ -1,11 +1,12 @@
-import React, { useContext, useState } from 'react'
-import noteContext from '../context/notes/noteContext'
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
     const [credentials, setCred] = useState({ email: "", password: "" });
-    const context = useContext(noteContext);
-    const { userLogin } = context;
+    const navigate = useNavigate();
+
+    const HOST = "http://127.0.0.1:5000";
 
     const onChange = (e) => {
         setCred({ ...credentials, [e.target.name]: e.target.value });
@@ -14,7 +15,27 @@ const Login = () => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        userLogin(credentials.email, credentials.password);
+
+        const response = await fetch(`${HOST}/api/auth/userlogin`, {
+
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({ email: credentials.email, password: credentials.password })
+        });
+
+        const json = await response.json();
+
+        if (json.success) {
+            localStorage.setItem("token", json.authtoken);
+        }
+        else {
+            alert("Invalid Credentials")
+            navigate("/login");
+        }
+        console.log(json);
     }
 
     return (
