@@ -28,7 +28,7 @@ const Signup = () => {
         "Content-Type": "application/json"
       },
 
-      body: JSON.stringify({ username, email, password })
+      body: JSON.stringify({ name: username, email, password })
     });
 
     const json = await response.json();
@@ -50,7 +50,7 @@ const Signup = () => {
         <div className='p-5'>
           <div className="mb-3 d-flex">
             <label htmlFor="name" className="form-label" style={{ width: "11%" }}>User Name</label>
-            <input type="text" className="form-control w-25 mx-3" id="name" name="username" aria-describedby="username" value={credentials.username} onChange={onChange} />
+            <input type="text" className="form-control w-25 mx-3" id="username" name="username" aria-describedby="username" value={credentials.username} onChange={onChange} />
             <span className={`${credentials.username.length >= 5 && 'd-none'} text-danger`}>[Min. 5 characters]</span>
 
           </div>
@@ -60,7 +60,7 @@ const Signup = () => {
           </div>
           <div className="mb-3 d-flex">
             <label htmlFor="password" className="form-label" style={{ width: "11%" }}>Password</label>
-            <input type="password" className="form-control w-25 mx-3" id="password" name='password' value={credentials.password} onChange={onChange} />
+            <input type="password" className="form-control w-25 mx-3" id="password" name='password' value={credentials.password} onChange={onChange} autoComplete='on' />
             <span className={`${credentials.password.length >= 5 && 'd-none'} text-danger`}>[Min. 5 characters]</span>
 
           </div>
@@ -68,7 +68,7 @@ const Signup = () => {
             <label htmlFor="password" className="form-label" style={{ width: "11%" }}>Confirm Password</label>
             <input type="password" className="form-control w-25 mx-3" id="cnfpassword" name='cnfpassword' value={credentials.cnfpassword} onChange={onChange} />
             <span className={`${credentials.cnfpassword.length >= 5 && 'd-none'} text-danger`}>[Min. 5 characters]</span>
-            <span className={`${credentials.password===credentials.cnfpassword && "d-none"} text-danger`}>&emsp;[Password & Confirm Password do not match]</span>
+            <span className={`${(credentials.cnfpassword.length>0 && credentials.password !== credentials.cnfpassword) ? "d-block" : "d-none"} text-danger`}>&emsp;[Password & Confirm Password do not match]</span>
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </div>

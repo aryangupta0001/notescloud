@@ -68,13 +68,14 @@ router.post("/createuser",
                 }
 
             } catch (error) {
-                res.status(500).send(success, error.message);
                 console.error(success, error.message)
+                res.status(500).send(success, error.message);
             }
         }
 
         else {
-            res.send({ success, error: "Input Data Invalid"});
+            // console.log({ success, error: "User Already exists" });
+            res.send({ success, error: "User Already exists", result });
         }
     }
 )
@@ -134,7 +135,7 @@ router.post("/userlogin", [
 router.post("/login", fetchUser, async (req, res) => {
 
     let success = false;
-    
+
     try {
         const userId = req.id;
         const user = await User.findById(userId).select("-password");                   // "--password" argument in .select() method is used to exclude password while selecting the user details.
@@ -142,7 +143,7 @@ router.post("/login", fetchUser, async (req, res) => {
     }
     catch (error) {
         console.error(success, error.message)
-        res.status(500).send({success, error});
+        res.status(500).send({ success, error });
     }
 })
 
