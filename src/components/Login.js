@@ -33,26 +33,25 @@ const Login = () => {
 
         if (json.success) {
             localStorage.setItem("token", json.jwtToken);
-            navigate("/");
+            navigate("/notes");
             showAlert({type: "User", operation: "Login"});
         }
         else {
             alert("Invalid Credentials")
         }
-        console.log(json);
     }
 
     return (
         <div className='container my-5'>
             <form onSubmit={handleOnSubmit}>
-                <div className='w-50 p-5'>
-                    <div className="mb-3 d-flex justify-content-between">
-                        <label htmlFor="email" className="form-label">Email address</label>
-                        <input type="email" className="form-control w-50" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
+                <div className='p-5'>
+                    <div className="mb-3 d-flex">
+                        <label htmlFor="email" className="form-label" style={{ width: "11%" }}>Email address</label>
+                        <input type="email" className="form-control w-25 mx-3" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
                     </div>
-                    <div className="mb-3 d-flex justify-content-between">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" className="form-control w-50" id="password" name='password' value={credentials.password} onChange={onChange} />
+                    <div className="mb-3 d-flex">
+                        <label htmlFor="password" className="form-label" style={{ width: "11%" }}>Password</label>
+                        <input type="password" className="form-control w-25 mx-3" id="password" name='password' value={credentials.password} onChange={onChange} />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </div>

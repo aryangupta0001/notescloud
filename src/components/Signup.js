@@ -13,9 +13,6 @@ const Signup = () => {
     setCred({ ...credentials, [e.target.name]: e.target.value });
   }
 
-
-
-
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,7 +37,6 @@ const Signup = () => {
       alert(json.error);
       navigate("/login");
     }
-    console.log(json);
   }
 
 
