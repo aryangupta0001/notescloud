@@ -29,7 +29,7 @@ const Login = () => {
         const json = await response.json();
 
         if (json.success) {
-            localStorage.setItem("token", json.authtoken);
+            localStorage.setItem("token", json.jwtToken);
             navigate("/");
             alert("Login succesfull");
         }
