@@ -1,14 +1,25 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import noteContext from '../context/notes/noteContext'
 
 
 const Login = () => {
+    
+    const [login, setLogin]= useState(false);
+    console.log("Login: ", login);
+
+    useEffect(() => {
+        setLogin(true);
+        console.log("Login : ", login);
+        // eslint-disable-next-line
+    }, [])
+
 
     const [credentials, setCred] = useState({ email: "", password: "" });
+
     const navigate = useNavigate();
     const context = useContext(noteContext);
-    
+
     const HOST = "http://127.0.0.1:5000";
     const { showAlert } = context;
 
@@ -34,7 +45,7 @@ const Login = () => {
         if (json.success) {
             localStorage.setItem("token", json.jwtToken);
             navigate("/notes");
-            showAlert({type: "User", operation: "Login"});
+            showAlert({ type: "User", operation: "Login" });
         }
         else {
             alert("Invalid Credentials")
@@ -42,18 +53,18 @@ const Login = () => {
     }
 
     return (
-        <div className='container my-5'>
+        <div className='container my-5 m-auto' >
             <form onSubmit={handleOnSubmit}>
-                <div className='p-5'>
-                    <div className="mb-3 d-flex">
-                        <label htmlFor="email" className="form-label" style={{ width: "11%" }}>Email address</label>
-                        <input type="email" className="form-control w-25 mx-3" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
+                <div className='py-5 m-auto' style={{ width: "50%", boxShadow: "0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1)", }}  >
+                    <div className="m-auto" style={{ width: "83%" }}>
+                        <label htmlFor="email" className="form-label d-block fw-semibold fs-5" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }}>Email</label>
+                        <input type="email" className="form-control m-auto" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
                     </div>
-                    <div className="mb-3 d-flex">
-                        <label htmlFor="password" className="form-label" style={{ width: "11%" }}>Password</label>
-                        <input type="password" className="form-control w-25 mx-3" id="password" name='password' value={credentials.password} onChange={onChange} />
+                    <div className="m-auto mt-3 mb-3 " style={{ width: "83%" }}>
+                        <label htmlFor="password" className="form-label d-block fw-semibold fs-5" >Password</label>
+                        <input type="password" className="form-control m-auto" id="password" name='password' value={credentials.password} onChange={onChange} />
                     </div>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary m-auto d-block mt-3" style={{ width: "83%" }}>Log In</button>
                 </div>
             </form>
         </div >

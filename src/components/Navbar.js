@@ -17,7 +17,7 @@ const Navbar = () => {
     const handleLogout = () => {
         localStorage.removeItem("token");
         showAlert({ type: "User", operation: "Logout" });
-        navigate("/login");
+        navigate("/");
     }
 
     return (
@@ -60,7 +60,7 @@ const Navbar = () => {
                                 <button type="submit" className="btn btn-outline-light mx-1" onClick={handleLogout} >Log Out</button>
                                 :
                                 <form className="d-flex" role="search">
-                                    <Link className="btn btn-outline-light mx-1" type="submit" to="/login">Login</Link>
+                                    {/* <Link className="btn btn-outline-light mx-1" type="submit" to="/login">Login</Link> */}
                                     <Link className="btn btn-outline-light mx-1" type="submit" to="/signup">Sign Up</Link>
                                 </form>
                         }
