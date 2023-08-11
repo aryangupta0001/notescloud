@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import noteContext from '../context/notes/noteContext'
+
 
 const Login = () => {
 
     const [credentials, setCred] = useState({ email: "", password: "" });
     const navigate = useNavigate();
-
+    const context = useContext(noteContext);
+    
     const HOST = "http://127.0.0.1:5000";
+    const { showAlert } = context;
 
     const onChange = (e) => {
         setCred({ ...credentials, [e.target.name]: e.target.value });
     }
-
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -31,7 +34,7 @@ const Login = () => {
         if (json.success) {
             localStorage.setItem("token", json.jwtToken);
             navigate("/");
-            alert("Login succesfull");
+            showAlert({type: "User", operation: "Login"});
         }
         else {
             alert("Invalid Credentials")

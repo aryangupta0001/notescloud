@@ -45,12 +45,12 @@ const NoteState = (props) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
+                    "auth-token": localStorage.getItem("token")
                 },
                 body: JSON.stringify({ title, description, tag })
             });
 
-            showAlert("Added");
+            showAlert({ type: "Note", operation: "Added" });
 
         } catch (error) {
             console.log(error);
@@ -71,12 +71,12 @@ const NoteState = (props) => {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
+                    "auth-token": localStorage.getItem("token")
                 },
                 body: JSON.stringify({ title, description, tag })
             });
 
-            showAlert("Updated");
+            showAlert({ type: "Note", operation: "Updated" });
 
         } catch (error) {
             console.log(error);
@@ -96,11 +96,11 @@ const NoteState = (props) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2U3MjBlYjc5ZDk0NWE1Y2M4YTkyZiIsImlhdCI6MTY5MTM0NDM3NH0.xBeCwEMgJDHpEIywH59pnJLP_i8CWs7PA9XBRWTNIo8"
+                    "auth-token": localStorage.getItem("token")
                 }
             });
 
-            showAlert("Deleted");
+            showAlert({ type: "Note", operation: "Deleted" });
 
         } catch (error) {
             console.log(error);
@@ -111,12 +111,11 @@ const NoteState = (props) => {
     }
 
 
-    const showAlert = (operation) => {
-        setAlert({
-            operation: operation
-        })
+    const showAlert = (alertObj) => {
+        setAlert(alertObj)
 
         setTimeout(() => {
+            
             setAlert(null);
         }, 750);
     }
@@ -142,7 +141,7 @@ const NoteState = (props) => {
         if (json.success) {
             localStorage.setItem("token", json.authtoken);
         }
-        else{
+        else {
             alert("Invalid Credentials")
         }
         console.log(json);
@@ -151,7 +150,7 @@ const NoteState = (props) => {
 
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, alertObj, userLogin }}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin }}>
             {props.children}
         </noteContext.Provider>
     )
