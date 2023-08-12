@@ -1,11 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import { useState } from "react";
+import Signup from "./Signup";
 
 
 
 const Home = () => {
-  const[login, setLogin] = useState(false);
+  const [login, setLogin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -18,8 +19,9 @@ const Home = () => {
       <div className="w-50 m-auto">
         <h1 className="mt-5 fw-bold fs-1 mb-10"><center>Welcome To NotesCloud</center></h1>
 
-        
+
         <Login />
+        <Signup />
 
         <center>
           Don't have an account ?

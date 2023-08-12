@@ -4,8 +4,8 @@ import noteContext from '../context/notes/noteContext'
 
 
 const Login = () => {
-    
-    const [login, setLogin]= useState(false);
+
+    const [login, setLogin] = useState(false);
     console.log("Login: ", login);
 
     useEffect(() => {
@@ -61,7 +61,7 @@ const Login = () => {
                         <input type="email" className="form-control m-auto" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
                     </div>
                     <div className="m-auto mt-3 mb-3 " style={{ width: "83%" }}>
-                        <label htmlFor="password" className="form-label d-block fw-semibold fs-5" >Password</label>
+                        <label htmlFor="password" className="form-label d-block fw-semibold fs-5" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }} >Password</label>
                         <input type="password" className="form-control m-auto" id="password" name='password' value={credentials.password} onChange={onChange} />
                     </div>
                     <button type="submit" className="btn btn-primary m-auto d-block mt-3" style={{ width: "83%" }}>Log In</button>

@@ -41,32 +41,34 @@ const Signup = () => {
 
 
   return (
-    <div className='container my-5'>
+    <div className='container my-5 m-auto'>
       <form onSubmit={handleOnSubmit}>
-        <div className='p-5'>
-          <div className="mb-3 d-flex">
-            <label htmlFor="name" className="form-label" style={{ width: "11%" }}>User Name</label>
-            <input type="text" className="form-control w-25 mx-3" id="username" name="username" aria-describedby="username" value={credentials.username} onChange={onChange} />
+        <div className='py-5 m-auto' style={{ width: "50%", boxShadow: "0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1)", }}  >
+          <div className="m-auto" style={{ width: "83%" }}>
+            <label htmlFor="name" className="form-label d-block fw-semibold fs-5" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }}>User Name</label>
+            <input type="text" className="form-control m-auto" id="username" name="username" aria-describedby="username" value={credentials.username} onChange={onChange} />
             <span className={`${credentials.username.length >= 5 && 'd-none'} text-danger`}>[Min. 5 characters]</span>
+          </div>
 
+          <div className="m-auto mt-3 mb-3" style={{ width: "83%" }}>
+            <label htmlFor="email" className="form-label d-block fw-semibold fs-5" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }}>Email address</label>
+            <input type="email" className="form-control m-auto" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
           </div>
-          <div className="mb-3 d-flex">
-            <label htmlFor="email" className="form-label" style={{ width: "11%" }}>Email address</label>
-            <input type="email" className="form-control w-25 mx-3" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
-          </div>
-          <div className="mb-3 d-flex">
-            <label htmlFor="password" className="form-label" style={{ width: "11%" }}>Password</label>
-            <input type="password" className="form-control w-25 mx-3" id="password" name='password' value={credentials.password} onChange={onChange} autoComplete='on' />
+
+          <div className="m-auto mt-3 mb-3" style={{ width: "83%" }}>
+            <label htmlFor="password" className="form-label d-block fw-semibold fs-5" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }}>Password</label>
+            <input type="password" className="form-control m-auto" id="password" name='password' value={credentials.password} onChange={onChange} autoComplete='on' />
             <span className={`${credentials.password.length >= 5 && 'd-none'} text-danger`}>[Min. 5 characters]</span>
-
           </div>
-          <div className="mb-3 d-flex">
-            <label htmlFor="password" className="form-label" style={{ width: "11%" }}>Confirm Password</label>
-            <input type="password" className="form-control w-25 mx-3" id="cnfpassword" name='cnfpassword' value={credentials.cnfpassword} onChange={onChange} autoComplete='on' />
+
+          <div className="m-auto mt-3 mb-3" style={{ width: "83%" }}>
+            <label htmlFor="password" className="form-label d-block fw-semibold fs-5" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }}>Confirm Password</label>
+            <input type="password" className="form-control m-auto" id="cnfpassword" name='cnfpassword' value={credentials.cnfpassword} onChange={onChange} autoComplete='on' />
             <span className={`${credentials.cnfpassword.length >= 5 && 'd-none'} text-danger`}>[Min. 5 characters]</span>
             <span className={`${(credentials.cnfpassword.length > 0 && credentials.password !== credentials.cnfpassword) ? "d-block" : "d-none"} text-danger`}>&emsp;[Password & Confirm Password do not match]</span>
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+
+          <button type="submit" className="btn btn-primary m-auto d-block mt-3" style={{ width: "83%" }}>Submit</button>
         </div>
       </form>
     </div >
