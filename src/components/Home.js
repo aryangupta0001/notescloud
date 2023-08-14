@@ -20,11 +20,11 @@ const Home = () => {
 
   return (
     <>
-      <div className="w-50 m-auto">
-        <h1 className="mt-5 fw-bold fs-1 mb-0"><center>Welcome To NotesCloud</center></h1>
+      {/* <div className="w-50 m-auto">
+        <h1 className="mt-5 fw-bold fs-1 mb-0"><center>Welcome To NotesCloud</center></h1> */}
 
         {toggleLogin ? <Login /> : <Signup />}
-      </div>
+      {/* </div> */}
     </>
   )
 }

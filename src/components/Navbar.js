@@ -12,7 +12,7 @@ const Navbar = () => {
     let location = useLocation();
     const context = useContext(noteContext);
     const navigate = useNavigate();
-    const { showAlert, toggleLogin } = context;
+    const { showAlert, toggleLogin, setToggleLogin } = context;
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -60,9 +60,9 @@ const Navbar = () => {
                                 <button type="submit" className="btn btn-outline-light mx-1" onClick={handleLogout} >Log Out</button>
                                 :
                                 toggleLogin ?
-                                    < Link className="btn btn-outline-light mx-1" type="submit" to="/signup">Sign Up</Link>
+                                    < Link className="btn btn-outline-light mx-1" type="submit" onClick={() => { setToggleLogin(false) }}>Sign Up</Link>
                                     :
-                                    <Link className="btn btn-outline-light mx-1" type="submit" to="/login">Login</Link>
+                                    <Link className="btn btn-outline-light mx-1" type="submit" onClick={() => { setToggleLogin(true) }}>Login</Link>
 
                         }
                     </div>

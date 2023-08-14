@@ -39,7 +39,7 @@ const Notes = () => {
         setNote({ ...note, [e.target.name]: e.target.value })
     }
 
-    const handleUpdate = (e) => {
+    const handleUpdate = () => {
         refClose.current.click();
         editNote(note.id, note.title, note.description, note.tag);
     }
