@@ -10,6 +10,7 @@ const NoteState = (props) => {
 
     const [notes, setNotes] = useState(initialNotes);
     const [alertObj, setAlert] = useState(null);
+    const [toggleLogin, setToggleLogin] = useState(true);
 
 
 
@@ -115,7 +116,7 @@ const NoteState = (props) => {
         setAlert(alertObj)
 
         setTimeout(() => {
-            
+
             setAlert(null);
         }, 750);
     }
@@ -150,7 +151,7 @@ const NoteState = (props) => {
 
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin }}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin}}>
             {props.children}
         </noteContext.Provider>
     )

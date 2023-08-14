@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +12,7 @@ const Navbar = () => {
     let location = useLocation();
     const context = useContext(noteContext);
     const navigate = useNavigate();
-    const { showAlert } = context;
+    const { showAlert, toggleLogin } = context;
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -56,18 +56,19 @@ const Navbar = () => {
                             </li>
                         </ul>
                         {
-                            (localStorage.getItem("token")) ?
+                            localStorage.getItem("token") ?
                                 <button type="submit" className="btn btn-outline-light mx-1" onClick={handleLogout} >Log Out</button>
                                 :
-                                <form className="d-flex" role="search">
-                                    {/* <Link className="btn btn-outline-light mx-1" type="submit" to="/login">Login</Link> */}
-                                    <Link className="btn btn-outline-light mx-1" type="submit" to="/signup">Sign Up</Link>
-                                </form>
+                                toggleLogin ?
+                                    < Link className="btn btn-outline-light mx-1" type="submit" to="/signup">Sign Up</Link>
+                                    :
+                                    <Link className="btn btn-outline-light mx-1" type="submit" to="/login">Login</Link>
+
                         }
                     </div>
-                </div>
-            </nav>
-        </div>
+                </div >
+            </nav >
+        </div >
     )
 }
 

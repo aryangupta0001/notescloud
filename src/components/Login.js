@@ -1,24 +1,16 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
-import noteContext from '../context/notes/noteContext'
+    import React, { useState, useContext } from 'react';
+    import { Link, useNavigate } from "react-router-dom";
+    import noteContext from '../context/notes/noteContext'
 
 
 const Login = () => {
+    const navigate = useNavigate();
+    const context = useContext(noteContext);
 
-    const [login, setLogin] = useState(false);
-    console.log("Login: ", login);
-
-    useEffect(() => {
-        setLogin(true);
-        console.log("Login : ", login);
-        // eslint-disable-next-line
-    }, [])
-
+    const { setToggleLogin } = context;
 
     const [credentials, setCred] = useState({ email: "", password: "" });
 
-    const navigate = useNavigate();
-    const context = useContext(noteContext);
 
     const HOST = "http://127.0.0.1:5000";
     const { showAlert } = context;
@@ -52,6 +44,11 @@ const Login = () => {
         }
     }
 
+
+    const handleToggleSignup = () => {
+        setToggleLogin(false);
+    }
+
     return (
         <div className='container my-5 m-auto' >
             <form onSubmit={handleOnSubmit}>
@@ -67,6 +64,12 @@ const Login = () => {
                     <button type="submit" className="btn btn-primary m-auto d-block mt-3" style={{ width: "83%" }}>Log In</button>
                 </div>
             </form>
+
+            <center className='mt-5'>
+                Don't have an account ?
+                <Link className="navbar-brand text-primary" onClick={handleToggleSignup}>&nbsp; Sign Up</Link>
+            </center>
+
         </div >
     )
 }
