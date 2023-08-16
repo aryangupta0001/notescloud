@@ -13,10 +13,6 @@ const Alert = () => {
             :
             <div className=" alert alert-primary alert-dismissible fade show mb-0 sticky-top" role="alert">
                 User <strong>{alertObj.operation}</strong> successfull</div>)
-
-
-        // alertObj && <div className=" alert alert-primary alert-dismissible fade show mb-0 sticky-top" role="alert"><strong>{alertObj}</strong> successfull</div>
-
     )
 }
 
