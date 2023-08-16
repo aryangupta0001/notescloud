@@ -7,13 +7,12 @@ const Login = () => {
     const navigate = useNavigate();
     const context = useContext(noteContext);
 
-    const { setToggleLogin } = context;
+    const { showAlert, setToggleLogin } = context;
 
     const [credentials, setCred] = useState({ email: "", password: "" });
 
 
     const HOST = "http://127.0.0.1:5000";
-    const { showAlert } = context;
 
     const onChange = (e) => {
         setCred({ ...credentials, [e.target.name]: e.target.value });
@@ -21,7 +20,10 @@ const Login = () => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
-        
+
+        const { email, password } = credentials;
+        setCred({ email: "", password: "" });
+
         const response = await fetch(`${HOST}/api/auth/userlogin`, {
 
             method: "POST",
@@ -29,7 +31,7 @@ const Login = () => {
                 "Content-Type": "application/json"
             },
 
-            body: JSON.stringify({ email: credentials.email, password: credentials.password })
+            body: JSON.stringify({ email, password })
         });
 
         const json = await response.json();

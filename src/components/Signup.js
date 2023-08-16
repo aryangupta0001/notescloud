@@ -5,16 +5,14 @@ import noteContext from '../context/notes/noteContext'
 
 const Signup = () => {
 
-  const context = useContext(noteContext);
-  const { setToggleLogin } = context;
-
-
   const HOST = "http://127.0.0.1:5000";
 
+  const context = useContext(noteContext);
+  const navigate = useNavigate();
+
+  const { showAlert, setToggleLogin } = context;
 
   const [credentials, setCred] = useState({ username: "", email: "", password: "", cnfpassword: "" });
-
-  const navigate = useNavigate();
 
   const onChange = (e) => {
     setCred({ ...credentials, [e.target.name]: e.target.value });
@@ -22,9 +20,11 @@ const Signup = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-
+    
     const { username, email, password } = credentials;
 
+    setCred({ username: "", email: "", password: "", cnfpassword: "" });  
+    
     const response = await fetch(`${HOST}/api/auth/createuser`, {
 
       method: "POST",
@@ -39,10 +39,13 @@ const Signup = () => {
 
     if (json.success) {
       localStorage.setItem("token", json.authtoken);
+      showAlert({ type: "User", operation: "Signup" });
+      document.getElementById("signUpForm").reset();
     }
     else {
       alert(json.error);
-      navigate("/login");
+      document.getElementById("signUpForm").reset();  
+      navigate("/");
     }
   }
 
@@ -51,7 +54,7 @@ const Signup = () => {
     <div className="w-50 m-auto">
       <h1 className="mt-5 fw-bold fs-1 mb-0"><center>Welcome To NotesCloud</center></h1>
       <div className='container my-5 m-auto mb-0'>
-        <form onSubmit={handleOnSubmit}>
+        <form onSubmit={handleOnSubmit} id='signUpForm'>
           <div className='py-5 m-auto' style={{ width: "50%", boxShadow: "0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1)", }}  >
             <div className="m-auto" style={{ width: "90%" }}>
               <label htmlFor="name" className="form-label fw-semibold fs-5 d-inline" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }}>User Name</label>

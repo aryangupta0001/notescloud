@@ -6,8 +6,6 @@ import noteContext from '../context/notes/noteContext'
 
 
 
-
-
 const Navbar = () => {
     let location = useLocation();
     const context = useContext(noteContext);
@@ -36,36 +34,29 @@ const Navbar = () => {
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                             </li>
 
-                            <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Dropdown
-                                </Link>
-                                <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to="#">Action</Link></li>
-                                    <li><Link className="dropdown-item" to="#">Another action</Link></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link disabled" aria-disabled="true">Disabled</Link>
-                            </li>
+
+
                         </ul>
-                        {
+                        {/* {
                             localStorage.getItem("token") ?
                                 <button type="submit" className="btn btn-outline-light mx-1" onClick={handleLogout} >Log Out</button>
                                 :
                                 toggleLogin ?
-                                    < Link className="btn btn-outline-light mx-1" type="submit" onClick={() => { setToggleLogin(false) }}>Sign Up</Link>
+                                    <Link className="btn btn-outline-light mx-1" type="submit" onClick={() => { setToggleLogin(false) }}>Sign Up</Link>
                                     :
                                     <Link className="btn btn-outline-light mx-1" type="submit" onClick={() => { setToggleLogin(true) }}>Login</Link>
-                        }
-                        <ul className="dropdown-menu">
-                            <li><Link className="dropdown-item" to="#">Action</Link></li>
-                            <li><Link className="dropdown-item" to="#">Another action</Link></li>
-                            <li><hr className="dropdown-divider" /></li>
-                            <li><Link className="dropdown-item" to="#">Something else here</Link></li>
-                        </ul>
+                        } */}
                     </div>
                 </div >
             </nav >
