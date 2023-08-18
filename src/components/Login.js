@@ -7,7 +7,7 @@ const Login = () => {
     const navigate = useNavigate();
     const context = useContext(noteContext);
 
-    const { showAlert, setToggleLogin } = context;
+    const { showAlert, setToggleLogin, userAuth, user } = context;
 
     const [credentials, setCred] = useState({ email: "", password: "" });
 
@@ -40,6 +40,9 @@ const Login = () => {
             localStorage.setItem("token", json.jwtToken);
             navigate("/notes");
             showAlert({ type: "User", operation: "Login" });
+
+            await userAuth();
+            console.log(user);
         }
         else {
             alert("Invalid Credentials")

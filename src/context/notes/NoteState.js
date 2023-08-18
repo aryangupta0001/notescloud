@@ -11,7 +11,7 @@ const NoteState = (props) => {
     const [notes, setNotes] = useState(initialNotes);
     const [alertObj, setAlert] = useState(null);
     const [toggleLogin, setToggleLogin] = useState(true);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({});
 
 
 
@@ -154,6 +154,7 @@ const NoteState = (props) => {
 
     const userAuth = async() => {
         const response = await fetch(`${HOST}/api/auth/userauth`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 "auth-token" : localStorage.getItem("token")
@@ -161,14 +162,14 @@ const NoteState = (props) => {
         });
 
         const json = await response.json();
-        console.log("!");
+        console.log(json);
         setUser(json);
 
     }
 
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, user}}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, user, userAuth}}>
             {props.children}
         </noteContext.Provider>
     )
