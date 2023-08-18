@@ -83,7 +83,7 @@ router.post("/createuser",
 
 // Endpoint --> Endpoint to Obtain JWT TOKEN by sending data through POST request.
 
-router.post("/userlogin", [
+router.post("/login", [
     body("email", "Enter a valid email").isEmail(),
     body("password", "Password cannot be blank").exists()
 
@@ -132,7 +132,7 @@ router.post("/userlogin", [
 
 // Endpoint --> Endpoint to Authenticate User thorugh JWT Token by sending data through POST request.
 
-router.post("/login", fetchUser, async (req, res) => {
+router.post("/userauth", fetchUser, async (req, res) => {
 
     let success = false;
 

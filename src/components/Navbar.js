@@ -1,16 +1,20 @@
-import React, { useContext, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState, useContext, useEffect } from 'react'
+import { Link, Route, useLocation } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
 import noteContext from '../context/notes/noteContext'
+import { isDOMComponent } from 'react-dom/test-utils';
 
 
 
 const Navbar = () => {
+    let loadLogo = false;
     let location = useLocation();
     const context = useContext(noteContext);
     const navigate = useNavigate();
-    const { showAlert, toggleLogin, setToggleLogin } = context;
+    const { showAlert, toggleLogin, setToggleLogin, user } = context;
+    const [logo, setLogo] = useState(false);
+
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -19,17 +23,24 @@ const Navbar = () => {
     }
 
     useEffect(() => {
-        let height = document.getElementById("navbar").offsetHeight;
-        let target = document.getElementById("logo");
-        console.log(height);
 
-        let image = document.createElement("img");
-        image.src = require("./user.png");
+        if (!logo) {
+            let height = document.getElementById("navbar").offsetHeight;
 
-        target.appendChild(image);
-
-        image.style.maxHeight = height + "px";
+            let target = document.getElementById("logo-image");
+            console.log(height);
+            target.style.maxHeight = height + "px";
+            setLogo(true);
+        }
     }, [])
+
+    const toggleProfile = () => {
+        let target = document.getElementById("userProfile");
+        let display = window.getComputedStyle(target).display;
+        console.log(display);
+
+        target.style.display = (display === "none") ? "block" : "none";
+    }
 
     return (
         <div>
@@ -60,7 +71,22 @@ const Navbar = () => {
                             </li>
                         </ul>
 
-                        <div id="logo"> 
+                        <div id="logo" className='mx-5' style={{ cursor: "pointer" }} onClick={toggleProfile}>
+                            <img src={require("./user.png")} alt="" className={`${logo ? 'd-block' : 'd-none'}`} id='logo-image' />
+                        </div>
+
+                        <div className='position-absolute top-100 end-0' id='userProfile' style={{ height: "100px", width: "250px", border: "2px solid black", display: "none" }}>
+                            {localStorage.getItem("token")
+                                ?
+                                <>
+                                    {/* <div>{user.name}</div> */}
+                                    <div onClick={handleLogout} style={{ border: "2px solid red" }}>Log Out</div>
+                                </>
+                                :
+                                <>
+                                    <div>Log In / Sign Up</div>
+                                </>
+                            }
                         </div>
                         {/* {
                             localStorage.getItem("token") ?

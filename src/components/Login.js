@@ -24,7 +24,7 @@ const Login = () => {
         const { email, password } = credentials;
         setCred({ email: "", password: "" });
 
-        const response = await fetch(`${HOST}/api/auth/userlogin`, {
+        const response = await fetch(`${HOST}/api/auth/login`, {
 
             method: "POST",
             headers: {

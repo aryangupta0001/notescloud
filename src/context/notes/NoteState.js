@@ -11,6 +11,7 @@ const NoteState = (props) => {
     const [notes, setNotes] = useState(initialNotes);
     const [alertObj, setAlert] = useState(null);
     const [toggleLogin, setToggleLogin] = useState(true);
+    const [user, setUser] = useState(null);
 
 
 
@@ -127,7 +128,7 @@ const NoteState = (props) => {
 
     const userLogin = async (email, password) => {
 
-        const response = await fetch(`${HOST}/api/auth/userlogin`, {
+        const response = await fetch(`${HOST}/api/auth/login`, {
 
             method: "POST",
             headers: {
@@ -141,6 +142,7 @@ const NoteState = (props) => {
 
         if (json.success) {
             localStorage.setItem("token", json.authtoken);
+            await userAuth();
         }
         else {
             alert("Invalid Credentials")
@@ -150,8 +152,23 @@ const NoteState = (props) => {
     }
 
 
+    const userAuth = async() => {
+        const response = await fetch(`${HOST}/api/auth/userauth`, {
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token" : localStorage.getItem("token")
+            },
+        });
+
+        const json = await response.json();
+        console.log("!");
+        setUser(json);
+
+    }
+
+
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin}}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, user}}>
             {props.children}
         </noteContext.Provider>
     )
