@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
@@ -18,9 +18,22 @@ const Navbar = () => {
         navigate("/");
     }
 
+    useEffect(() => {
+        let height = document.getElementById("navbar").offsetHeight;
+        let target = document.getElementById("logo");
+        console.log(height);
+
+        let image = document.createElement("img");
+        image.src = require("./user.png");
+
+        target.appendChild(image);
+
+        image.style.maxHeight = height + "px";
+    }, [])
+
     return (
         <div>
-            <nav className="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+            <nav className="navbar navbar-expand-lg bg-primary" id='navbar' data-bs-theme="dark">
 
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/">NotesCloud</Link>
@@ -34,20 +47,21 @@ const Navbar = () => {
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Dropdown
                                 </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><hr class="dropdown-divider" /></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <ul className="dropdown-menu">
+                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
                             </li>
-
-
                         </ul>
+
+                        <div id="logo"> 
+                        </div>
                         {/* {
                             localStorage.getItem("token") ?
                                 <button type="submit" className="btn btn-outline-light mx-1" onClick={handleLogout} >Log Out</button>
