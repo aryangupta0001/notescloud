@@ -4,6 +4,7 @@ import { useContext } from "react";
 import Signup from "./Signup";
 
 import noteContext from '../context/notes/noteContext'
+import Notes from "./Notes";
 
 
 
@@ -14,13 +15,10 @@ const Home = () => {
   const context = useContext(noteContext);
   const { toggleLogin } = context;
 
-  if (localStorage.getItem("token")) {
-    navigate("/notes");
-  }
-
   return (
     <>
-      {toggleLogin ? <Login /> : <Signup />}
+      {localStorage.getItem("token") ? <Notes /> : (toggleLogin ? <Login /> : <Signup />)}
+      {/* {toggleLogin ? <Login /> : <Signup />} */}
     </>
   )
 }

@@ -86,7 +86,8 @@ const Signup = () => {
 
         <center className='mt-5'>
           Already have an account ?
-          <Link className="navbar-brand text-primary" onClick={() => { setToggleLogin(true) }}>&nbsp; Login In</Link>
+          <button className="navbar-brand text-primary" onClick={() => { setToggleLogin(true) }} style={{ border: "none", background: "none" }}>&nbsp; Login In</button>
+
         </center>
 
       </div >

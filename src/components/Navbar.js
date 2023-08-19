@@ -2,8 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Link, Route, useLocation } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
-import noteContext from '../context/notes/noteContext'
-import { isDOMComponent } from 'react-dom/test-utils';
+import noteContext from '../context/notes/noteContext';
 
 
 
@@ -37,7 +36,6 @@ const Navbar = () => {
     const toggleProfile = () => {
         let target = document.getElementById("userProfile");
         let display = window.getComputedStyle(target).display;
-        console.log(display);
 
         target.style.display = (display === "none") ? "block" : "none";
     }

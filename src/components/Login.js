@@ -38,7 +38,7 @@ const Login = () => {
 
         if (json.success) {
             localStorage.setItem("token", json.jwtToken);
-            navigate("/notes");
+            // navigate("/notes");
             showAlert({ type: "User", operation: "Login" });
 
             await userAuth();
@@ -69,7 +69,7 @@ const Login = () => {
 
                 <center className='mt-5'>
                     Don't have an account ?
-                    <Link className="navbar-brand text-primary" onClick={() => { setToggleLogin(false) }}>&nbsp; Sign Up</Link>
+                    <button className="navbar-brand text-primary" onClick={() => { setToggleLogin(false) }} style={{ border: "none", background: "none" }}>&nbsp; Sign Up</button>
                 </center>
 
             </div >

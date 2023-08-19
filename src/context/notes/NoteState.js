@@ -152,24 +152,30 @@ const NoteState = (props) => {
     }
 
 
-    const userAuth = async() => {
-        const response = await fetch(`${HOST}/api/auth/userauth`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token" : localStorage.getItem("token")
-            },
-        });
+    const userAuth = async () => {
+        try {
+            const response = await fetch(`${HOST}/api/auth/userauth`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token")
+                },
+            });
 
-        const json = await response.json();
-        console.log(json);
-        setUser(json);
+            const json = await response.json();
+            console.log(json);
+            setUser(json);
+
+        } catch (error) {
+            console.log("Error verifying user", error);
+        }
+
 
     }
 
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, user, userAuth}}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, user, userAuth }}>
             {props.children}
         </noteContext.Provider>
     )

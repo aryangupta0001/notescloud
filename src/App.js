@@ -15,7 +15,7 @@ import Signup from "./components/Signup";
 import Notes from "./components/Notes";
 
 function App() {
-  localStorage.removeItem("token");
+  // localStorage.removeItem("token");
   return (
     <NoteState>
       <Router>
@@ -28,7 +28,7 @@ function App() {
           <Route path="/notes" element={<Notes />} />
           <Route path='/about' element={<About />} />
           {/* <Route path='/login' element={<Login />} /> */}
-          <Route path='/signup' element={<Signup />} />
+          {/* <Route path='/signup' element={<Signup />} /> */}
         </Routes>
       </Router>
     </NoteState>
