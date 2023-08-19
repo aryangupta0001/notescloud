@@ -11,7 +11,7 @@ const NoteState = (props) => {
     const [notes, setNotes] = useState(initialNotes);
     const [alertObj, setAlert] = useState(null);
     const [toggleLogin, setToggleLogin] = useState(true);
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(null);
 
 
 
@@ -165,6 +165,7 @@ const NoteState = (props) => {
             const json = await response.json();
             console.log(json);
             setUser(json);
+            console.log(user);
 
         } catch (error) {
             console.log("Error verifying user", error);
