@@ -164,7 +164,7 @@ const NoteState = (props) => {
 
             const json = await response.json();
             console.log(json);
-            setUser(json);
+            setUser({name : json.name, email : json.email});
             console.log(user);
 
         } catch (error) {
@@ -179,7 +179,7 @@ const NoteState = (props) => {
         <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, user, userAuth }}>
             {props.children}
         </noteContext.Provider>
-    )
+    )   
 }
 
 export default NoteState;

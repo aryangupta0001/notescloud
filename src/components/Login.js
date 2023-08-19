@@ -24,29 +24,35 @@ const Login = () => {
         const { email, password } = credentials;
         setCred({ email: "", password: "" });
 
-        const response = await fetch(`${HOST}/api/auth/login`, {
+        try {
+            const response = await fetch(`${HOST}/api/auth/login`, {
 
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
 
-            body: JSON.stringify({ email, password })
-        });
+                body: JSON.stringify({ email, password })
+            });
 
-        const json = await response.json();
+            const json = await response.json();
 
-        if (json.success) {
-            localStorage.setItem("token", json.jwtToken);
-            // navigate("/notes");
-            showAlert({ type: "User", operation: "Login" });
+            if (json.success) {
+                localStorage.setItem("token", json.jwtToken);
+                // navigate("/notes");
+                showAlert({ type: "User", operation: "Login" });
 
-            await userAuth();
-            console.log(user);
+                await userAuth();
+            }
+            else {
+                alert("Invalid Credentials")
+            }
+        } catch (error) {
+            console.log("Error in logging in : ", error);
         }
-        else {
-            alert("Invalid Credentials")
-        }
+        
+        // console.log(user);
+
     }
 
     return (

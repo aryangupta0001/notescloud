@@ -77,7 +77,7 @@ const Navbar = () => {
                             {localStorage.getItem("token")
                                 ?
                                 <>
-                                    {/* <div>{user.name}</div> */}
+                                    <div>Hello {user.name}</div>
                                     <div onClick={handleLogout} style={{ border: "2px solid red" }}>Log Out</div>
                                 </>
                                 :
