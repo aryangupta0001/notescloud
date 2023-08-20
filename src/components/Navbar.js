@@ -10,8 +10,9 @@ const Navbar = () => {
     let location = useLocation();
     const context = useContext(noteContext);
     const navigate = useNavigate();
-    const { showAlert, user, userAuth } = context;
+    const { showAlert } = context;
     const [logo, setLogo] = useState(false);
+    const [profile, setProfile] = useState(false)
 
 
     const handleLogout = () => {
@@ -28,20 +29,27 @@ const Navbar = () => {
             let target = document.getElementById("logo-image");
             target.style.maxHeight = height + "px";
             setLogo(true);
-        } 
+        }
+
+        let target = document.getElementById("userProfile");
+        target.style.display = "none";
+
     }, [])
 
 
     useEffect(() => {
-        let target = document.getElementById("userProfile");
-        // console.log(target);
+        let target1 = document.getElementById("userProfile");
+        let target2 = document.getElementById("logo");
 
         const handleOutsideClick = (event) => {
-            if (target.style.display === "block") {
-                if (target.contains(event.target)) {
+            if (profile) {
+                if (!target1.contains(event.target)) {
+                    setProfile(false);
                 }
-                else {
-                    target.style.display = "none";
+            }
+            else {
+                if (target2.contains(event.target)) {
+                    setProfile(true);
                 }
             }
         }
@@ -53,13 +61,6 @@ const Navbar = () => {
         };
 
     })
-
-    const toggleProfile = () => {
-        let target = document.getElementById("userProfile");
-        let display = window.getComputedStyle(target).display;
-
-        target.style.display = (display === "none") ? "block" : "none";
-    }
 
     return (
         <div>
@@ -89,11 +90,11 @@ const Navbar = () => {
                             </li>
                         </ul>
 
-                        <div id="logo" className='mx-5 pointer' onClick={toggleProfile}>
+                        <div id="logo" className='mx-5 pointer'>
                             <img src={require("./user.png")} alt="" className={`${logo ? 'd-block' : 'd-none'}`} id='logo-image' />
                         </div>
 
-                        <div className='position-absolute top-100 end-0' id='userProfile'>
+                        <div className={`position-absolute top-100 end-0 ${profile ? 'd-block' : 'd-none'}`} id='userProfile'>
                             {localStorage.getItem("token")
                                 ?
                                 <>
