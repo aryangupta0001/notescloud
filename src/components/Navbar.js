@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { Link, Route, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
 import noteContext from '../context/notes/noteContext';
@@ -7,11 +7,10 @@ import noteContext from '../context/notes/noteContext';
 
 
 const Navbar = () => {
-    let loadLogo = false;
     let location = useLocation();
     const context = useContext(noteContext);
     const navigate = useNavigate();
-    const { showAlert, toggleLogin, setToggleLogin, user } = context;
+    const { showAlert, user, userAuth } = context;
     const [logo, setLogo] = useState(false);
 
 
@@ -31,6 +30,13 @@ const Navbar = () => {
             target.style.maxHeight = height + "px";
             setLogo(true);
         }
+
+        // console.log(user);
+
+        if(localStorage.getItem("token")){
+            userAuth();
+        }
+        // console.log(user);
     }, [])
 
     const toggleProfile = () => {
@@ -77,7 +83,7 @@ const Navbar = () => {
                             {localStorage.getItem("token")
                                 ?
                                 <>
-                                    <div>Hello {user.name}</div>
+                                    <div>Hello {user?.name}</div>
                                     <div onClick={handleLogout} style={{ border: "2px solid red" }}>Log Out</div>
                                 </>
                                 :
@@ -86,15 +92,6 @@ const Navbar = () => {
                                 </>
                             }
                         </div>
-                        {/* {
-                            localStorage.getItem("token") ?
-                                <button type="submit" className="btn btn-outline-light mx-1" onClick={handleLogout} >Log Out</button>
-                                :
-                                toggleLogin ?
-                                    <Link className="btn btn-outline-light mx-1" type="submit" onClick={() => { setToggleLogin(false) }}>Sign Up</Link>
-                                    :
-                                    <Link className="btn btn-outline-light mx-1" type="submit" onClick={() => { setToggleLogin(true) }}>Login</Link>
-                        } */}
                     </div>
                 </div >
             </nav >

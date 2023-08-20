@@ -32,7 +32,6 @@ const Notes = () => {
     const updateNote = (current_note) => {
         ref.current.click();
         setNote({ id: current_note._id, title: current_note.title, description: current_note.description, tag: current_note.tag });
-
     }
 
     const onChange = (e) => {

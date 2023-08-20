@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from "react-router-dom";
 import noteContext from '../context/notes/noteContext'
 
 
 const Login = () => {
-    const navigate = useNavigate();
     const context = useContext(noteContext);
 
-    const { showAlert, setToggleLogin, userAuth, user } = context;
+    const { showAlert, setToggleLogin, userAuth } = context;
 
     const [credentials, setCred] = useState({ email: "", password: "" });
 
@@ -39,10 +37,9 @@ const Login = () => {
 
             if (json.success) {
                 localStorage.setItem("token", json.jwtToken);
-                // navigate("/notes");
                 showAlert({ type: "User", operation: "Login" });
 
-                await userAuth();
+                // await userAuth();
             }
             else {
                 alert("Invalid Credentials")
@@ -50,7 +47,7 @@ const Login = () => {
         } catch (error) {
             console.log("Error in logging in : ", error);
         }
-        
+
         // console.log(user);
 
     }

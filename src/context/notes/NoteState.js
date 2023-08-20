@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState , useEffect} from "react"
 import noteContext from "./noteContext"
 
 
@@ -11,8 +11,7 @@ const NoteState = (props) => {
     const [notes, setNotes] = useState(initialNotes);
     const [alertObj, setAlert] = useState(null);
     const [toggleLogin, setToggleLogin] = useState(true);
-    const [user, setUser] = useState(null);
-
+    const [user, setUser] = useState({});
 
 
     // CRUD Operations :-
@@ -117,7 +116,6 @@ const NoteState = (props) => {
         setAlert(alertObj)
 
         setTimeout(() => {
-
             setAlert(null);
         }, 750);
     }
@@ -142,7 +140,7 @@ const NoteState = (props) => {
 
         if (json.success) {
             localStorage.setItem("token", json.authtoken);
-            await userAuth();
+            // await userAuth();
         }
         else {
             alert("Invalid Credentials")
@@ -163,20 +161,17 @@ const NoteState = (props) => {
             });
 
             const json = await response.json();
-            console.log(json);
+
             setUser({name : json.name, email : json.email});
-            console.log(user);
 
         } catch (error) {
             console.log("Error verifying user", error);
         }
-
-
     }
 
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, user, userAuth }}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, userAuth, user }}>
             {props.children}
         </noteContext.Provider>
     )   

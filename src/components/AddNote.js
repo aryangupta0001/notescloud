@@ -21,28 +21,28 @@ const AddNote = () => {
 
     return (
         <div>
-            <div className="container my-3">
+            <div className="container my-3" onClick={() => {document.getElementById("userProfile").style.display = "none";}}>
                 <h2>Add a Note</h2>
                 <form className="my-3">
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title</label>
                         <span style={{ color: "red" }}><b> *</b></span>
-                        <span style={{ color: "red", display : note.title.length>=5 && 'none'}}> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; [Min. 5 characters]</span>
-                        <input type="text" className="form-control" id="title" name='title' value={note.title} onChange={onChange} />
+                        <span style={{ color: "red", display: note.title.length >= 5 && 'none' }}> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; [Min. 5 characters]</span>
+                        <input type="text" className="form-control" id="title" name='title' value={note.title} onChange={onChange} style={{ width: "50%" }} />
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="description" className="form-label">Description</label>
                         <span style={{ color: "red" }}><b> *</b></span>
-                        <span style={{ color: "red", display : note.description.length>=5 && 'none'}}> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; [Min. 5 characters]</span>
-                        <input type="text" className="form-control" id="description" name='description' value={note.description} onChange={onChange} />
+                        <span style={{ color: "red", display: note.description.length >= 5 && 'none' }}> &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; [Min. 5 characters]</span>
+                        <input type="text" className="form-control" id="description" name='description' value={note.description} onChange={onChange} style={{ width: "50%" }} />
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="tag" className="form-label">Tag</label>
-                        <input type="text" className="form-control" id="tag" name='tag' value={note.tag} onChange={onChange} />
+                        <input type="text" className="form-control" id="tag" name='tag' value={note.tag} onChange={onChange} style={{ width: "50%" }} />
                     </div>
-                    <button type="submit" className="btn btn-primary" onClick={handleAdd} disabled={note.title.length<5 || note.description.length<5}>Add Note</button>
+                    <button type="submit" className="btn btn-primary" onClick={handleAdd} disabled={note.title.length < 5 || note.description.length < 5}>Add Note</button>
                 </form>
             </div>
         </div>
