@@ -37,9 +37,8 @@ const Login = () => {
 
             if (json.success) {
                 localStorage.setItem("token", json.jwtToken);
+                userAuth();
                 showAlert({ type: "User", operation: "Login" });
-
-                // await userAuth();
             }
             else {
                 alert("Invalid Credentials")
@@ -57,7 +56,7 @@ const Login = () => {
             <h1 className="mt-5 fw-bold fs-1 mb-0"><center>Welcome To NotesCloud</center></h1>
             <div className='container my-5 m-auto' >
                 <form onSubmit={handleOnSubmit}>
-                    <div className='py-5 m-auto' style={{ width: "50%", boxShadow: "0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1)", }}  >
+                    <div className='py-5 m-auto' style={{ width: "50%", boxShadow: "0 10px 24px hsla(0,0%,0%,0.05), 0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1)" }}  >
                         <div className="m-auto" style={{ width: "83%" }}>
                             <label htmlFor="email" className="form-label d-block fw-semibold fs-5" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif' }}>Email</label>
                             <input type="email" className="form-control m-auto" id="email" name="email" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />

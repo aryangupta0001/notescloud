@@ -162,6 +162,8 @@ const NoteState = (props) => {
 
             const json = await response.json();
 
+            localStorage.setItem("name", json.name);
+            localStorage.setItem("email", json.email);
             setUser({name : json.name, email : json.email});
 
         } catch (error) {

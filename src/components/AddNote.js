@@ -21,7 +21,7 @@ const AddNote = () => {
 
     return (
         <div>
-            <div className="container my-3" onClick={() => {document.getElementById("userProfile").style.display = "none";}}>
+            <div className="container my-3">
                 <h2>Add a Note</h2>
                 <form className="my-3">
                     <div className="mb-3">

@@ -26,18 +26,33 @@ const Navbar = () => {
             let height = document.getElementById("navbar").offsetHeight;
 
             let target = document.getElementById("logo-image");
-            console.log(height);
             target.style.maxHeight = height + "px";
             setLogo(true);
-        }
-
-        // console.log(user);
-
-        if(localStorage.getItem("token")){
-            userAuth();
-        }
-        // console.log(user);
+        } 
     }, [])
+
+
+    useEffect(() => {
+        let target = document.getElementById("userProfile");
+        // console.log(target);
+
+        const handleOutsideClick = (event) => {
+            if (target.style.display === "block") {
+                if (target.contains(event.target)) {
+                }
+                else {
+                    target.style.display = "none";
+                }
+            }
+        }
+
+        document.addEventListener("click", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+
+    })
 
     const toggleProfile = () => {
         let target = document.getElementById("userProfile");
@@ -49,7 +64,6 @@ const Navbar = () => {
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-primary" id='navbar' data-bs-theme="dark">
-
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/">NotesCloud</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,16 +89,32 @@ const Navbar = () => {
                             </li>
                         </ul>
 
-                        <div id="logo" className='mx-5' style={{ cursor: "pointer" }} onClick={toggleProfile}>
+                        <div id="logo" className='mx-5 pointer' onClick={toggleProfile}>
                             <img src={require("./user.png")} alt="" className={`${logo ? 'd-block' : 'd-none'}`} id='logo-image' />
                         </div>
 
-                        <div className='position-absolute top-100 end-0' id='userProfile' style={{ height: "100px", width: "250px", border: "2px solid black", display: "none" }}>
+                        <div className='position-absolute top-100 end-0' id='userProfile'>
                             {localStorage.getItem("token")
                                 ?
                                 <>
-                                    <div>Hello {user?.name}</div>
-                                    <div onClick={handleLogout} style={{ border: "2px solid red" }}>Log Out</div>
+                                    <div>
+                                        Hello &nbsp;
+                                        <span>
+                                            {localStorage.name}
+                                        </span>
+                                    </div>
+
+                                    <div onClick={() => { navigate("/notes") }}>
+                                        Your Notes
+                                    </div>
+
+                                    <div>
+                                        Create Notes
+                                    </div>
+
+                                    <div className='pointer' onClick={handleLogout}>
+                                        Log Out
+                                    </div>
                                 </>
                                 :
                                 <>
