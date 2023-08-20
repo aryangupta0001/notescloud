@@ -15,12 +15,6 @@ const Navbar = () => {
     const [profile, setProfile] = useState(false)
 
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        showAlert({ type: "User", operation: "Logout" });
-        navigate("/");
-    }
-
     useEffect(() => {
 
         if (!logo) {
@@ -62,6 +56,29 @@ const Navbar = () => {
 
     })
 
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        showAlert({ type: "User", operation: "Logout" });
+        navigate("/");
+    }
+
+    const handleCreateNotes = () => {
+        try {
+            if (location.pathname !== "/") {
+                navigate("/");
+            }
+
+            const target = document.getElementById("title");
+
+            if (target) {
+                target.focus();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-primary" id='navbar' data-bs-theme="dark">
@@ -76,22 +93,11 @@ const Navbar = () => {
                             <li className="nav-item">
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                             </li>
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Dropdown
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </li>
                         </ul>
 
                         <div id="logo" className='mx-5 pointer'>
-                            <img src={require("./user.png")} alt="" className={`${logo ? 'd-block' : 'd-none'}`} id='logo-image' />
+                            <i className="fa-sharp fa-regular fa-user fa-2xl" id='logo-image' />
+                            {/* <img src={ require("./user.png")} alt="" className={`${logo ? 'd-block' : 'd-none'}`} id='logo-image' /> */}
                         </div>
 
                         <div className={`position-absolute top-100 end-0 ${profile ? 'd-block' : 'd-none'}`} id='userProfile'>
@@ -100,18 +106,22 @@ const Navbar = () => {
                                 <>
                                     <div>
                                         Hello &nbsp;
-                                        <span>
-                                            {localStorage.name}
-                                        </span>
+                                        <b>
+                                            <span>
+                                                {localStorage.name}
+                                            </span>
+                                        </b>
                                     </div>
 
-                                    <div onClick={() => { navigate("/notes") }}>
+                                    <div className='pointer' onClick={() => { navigate("/notes") }}>
                                         Your Notes
                                     </div>
 
-                                    <div>
+                                    <div className='pointer' onClick={handleCreateNotes}>
                                         Create Notes
                                     </div>
+
+                                    <hr />
 
                                     <div className='pointer' onClick={handleLogout}>
                                         Log Out

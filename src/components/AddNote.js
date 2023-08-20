@@ -21,9 +21,9 @@ const AddNote = () => {
 
     return (
         <div>
-            <div className="container my-3">
+            <div className="container my-5">
                 <h2>Add a Note</h2>
-                <form className="my-3">
+                <form className="my-3" id='addNote'>
                     <div className="mb-3">
                         <label htmlFor="title" className="form-label">Title</label>
                         <span style={{ color: "red" }}><b> *</b></span>
