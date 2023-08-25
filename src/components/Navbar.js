@@ -60,22 +60,22 @@ const Navbar = () => {
         localStorage.removeItem("token");
         showAlert({ type: "User", operation: "Logout" });
         navigate("/");
+        setProfile(false);
     }
 
     const handleCreateNotes = () => {
-        try {
-            if (location.pathname !== "/") {
-                navigate("/");
-            }
+        navigate("/");
 
+        setTimeout(() => {
             const target = document.getElementById("title");
+            console.log(target);
 
             if (target) {
                 target.focus();
+                setProfile(false);
             }
-        } catch (error) {
-            console.log(error);
-        }
+        }, 0);
+
     }
 
 
@@ -97,7 +97,6 @@ const Navbar = () => {
 
                         <div id="logo" className='mx-5 pointer'>
                             <i className="fa-sharp fa-regular fa-user fa-2xl" id='logo-image' />
-                            {/* <img src={ require("./user.png")} alt="" className={`${logo ? 'd-block' : 'd-none'}`} id='logo-image' /> */}
                         </div>
 
                         <div className={`position-absolute top-100 end-0 ${profile ? 'd-block' : 'd-none'}`} id='userProfile'>
@@ -129,7 +128,7 @@ const Navbar = () => {
                                 </>
                                 :
                                 <>
-                                    <div>Log In / Sign Up</div>
+                                    <div onClick={() => { navigate("/") }}>Log In / Sign Up</div>
                                 </>
                             }
                         </div>
