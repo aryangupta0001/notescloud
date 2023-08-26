@@ -19,6 +19,9 @@ const AddNote = () => {
         showAlert("Added")
     }
 
+    let tags = ["general", "priority", "important", "urgent", "asap", "free"];
+
+
     return (
         <div>
             <div className="container my-5">
@@ -48,8 +51,20 @@ const AddNote = () => {
 
                     <div className="mb-3 w-50">
                         <label htmlFor="tag" className="form-label">Tag</label>
-                        <input type="text" className="form-control" id="tag" name='tag' value={note.tag} onChange={onChange} />
+
+                        {/* <input type="text" className="form-control" id="tag" name='tag' value={note.tag} onChange={onChange} /> */}
+
+                        <input type="text" className="form-control" id="tag" name='tag' value={note.tag} onChange={onChange} list="options" />
+
+                        <datalist id="options">
+                            {tags.map((option, index) => (
+                                <option key={index} value={option} />
+                            ))}
+                        </datalist>
+
                     </div>
+
+
                     <button type="submit" className="btn btn-primary" onClick={handleAdd} disabled={note.title.length < 5 || note.description.length < 5}>Add Note</button>
                 </form>
             </div>

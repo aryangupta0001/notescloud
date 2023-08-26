@@ -127,7 +127,7 @@ const Navbar = () => {
                                         </b>
                                     </div>
 
-                                    <div className='pointer' onClick={() => { navigate("/notes") }}>
+                                    <div className='pointer' onClick={() => { setProfile(false); navigate("/notes") }}>
                                         Your Notes
                                     </div>
 
