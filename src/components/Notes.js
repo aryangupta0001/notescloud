@@ -3,6 +3,7 @@ import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 import noteContext from '../context/notes/noteContext'
 import { useNavigate } from "react-router-dom";
+import { isDOMComponent } from 'react-dom/test-utils';
 
 
 
@@ -26,7 +27,7 @@ const Notes = () => {
     }, [])
 
 
-    const ref = useRef(null)
+    const ref = useRef(null);
     const refClose = useRef(null);
 
     const updateNote = (current_note) => {
@@ -42,6 +43,22 @@ const Notes = () => {
         refClose.current.click();
         editNote(note.id, note.title, note.description, note.tag);
     }
+
+    useEffect(() => {
+        const index = notes.length;
+
+        if (index > 0) {
+            const target = document.getElementById("notes");
+            const lastNote = target.children[index - 1].firstElementChild;
+            const height = lastNote.offsetHeight;
+
+            const lastEle = target.children[index].firstElementChild;
+
+            lastEle.style.maxHeight = height + "px";
+
+            document.getElementById("addLogo").style.maxHeight = height + "px";
+        }
+    }, [notes]);
 
 
     return (
@@ -92,14 +109,34 @@ const Notes = () => {
                 </div>
 
 
-                <div className="row my-3">
+                <div className="row my-3" id='notes'>
                     {
                         notes.map((note) => (
                             <NoteItem current_note={note} key={note._id} updateNote={updateNote} />
                         ))
+
                     }
+
+
+                    <div className='col-md-3'>
+                        <div className='card my-3'>
+                            <div className=' d-inline d-flex justify-content-center align-items-center' id='addNoteButton' style={{ maxHeight: "100%" }}>
+                                {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                    </svg> */}
+
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16" id='addLogo'>
+                                    <circle cx="8" cy="8" r="8" fill="currentColor" style={{ maxHeight: "90%" }} />
+                                    <path d="M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" fill="red" style={{ maxHeight: "90%" }} />
+                                </svg>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+
+            </div >
         </>
     )
 }

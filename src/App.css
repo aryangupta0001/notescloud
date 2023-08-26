@@ -59,7 +59,9 @@ i {
 }
 
 
-
+#addNoteButton svg {
+  max-height: 100%;
+}
 
 
 
