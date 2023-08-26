@@ -13,6 +13,7 @@ import Alert from "./components/Alert";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Notes from "./components/Notes";
+import ChangePass from "./components/ChangePass";
 
 function App() {
   // localStorage.removeItem("token");
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/notes" element={<Notes />} />
           <Route path='/about' element={<About />} />
+          <Route path='/changePass' element={<ChangePass />} />
           {/* <Route path='/login' element={<Login />} /> */}
           {/* <Route path='/signup' element={<Signup />} /> */}
         </Routes>

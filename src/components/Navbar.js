@@ -79,6 +79,11 @@ const Navbar = () => {
     }
 
 
+    const handleChangePassword = () => {
+        navigate("/changePass")
+    }
+
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-primary" id='navbar' data-bs-theme="dark">
@@ -121,6 +126,10 @@ const Navbar = () => {
                                     </div>
 
                                     <hr />
+
+                                    <div onClick={handleChangePassword}>
+                                        Change Password
+                                    </div>
 
                                     <div className='pointer' onClick={handleLogout}>
                                         Log Out

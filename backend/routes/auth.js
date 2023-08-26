@@ -147,4 +147,47 @@ router.post("/userauth", fetchUser, async (req, res) => {
     }
 })
 
+
+
+// Endpoint --> Endpoint to Change User Password.
+
+router.put("/changepass", fetchUser, async (req, res) => {
+    console.log("API called");
+    let success = false;
+
+    const { email, password, newpassword } = req.body;
+
+    const salt = bcrypt.genSaltSync(10);
+    const secPass = bcrypt.hashSync(newpassword, salt);
+
+    try {
+
+        const user = await User.findOne({ email: email })
+
+        let passMatch = await bcrypt.compare(password, user.password)
+        console.log("PasssMatch", passMatch);
+
+
+        if (passMatch) {
+            try {
+                User.findByIdAndUpdate(req.id, { $set: { password: secPass } }, { new: true });
+            } catch (error) {
+                console.log(error);
+                res.send({ success, error });
+            }
+        }
+        else {
+            alert("Wrong Password");
+            res.send({ success, message: "Wrong Password" });
+        }
+
+
+        
+    } catch (error) {
+        console.log(error);
+        res.send({ success, message: "Wrong Password" });
+
+    }
+})
+
 module.exports = router

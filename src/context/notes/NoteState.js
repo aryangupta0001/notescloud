@@ -1,4 +1,4 @@
-import { useState , useEffect} from "react"
+import { useState, useEffect } from "react"
 import noteContext from "./noteContext"
 
 
@@ -164,7 +164,7 @@ const NoteState = (props) => {
 
             localStorage.setItem("name", json.name);
             localStorage.setItem("email", json.email);
-            setUser({name : json.name, email : json.email});
+            setUser({ name: json.name, email: json.email });
 
         } catch (error) {
             console.log("Error verifying user", error);
@@ -172,11 +172,31 @@ const NoteState = (props) => {
     }
 
 
+    const changePass = async (password, newpassword) => {
+        console.log("ChangePass invoked");
+
+        const response = await fetch(`${HOST}/api/auth/changepass`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": localStorage.getItem("token")
+            },
+            body: JSON.stringify({ email: localStorage.getItem("email"), password, newpassword })
+        });
+
+        const json = await response.json();
+
+        console.log(json);
+
+
+    }
+
+
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, userAuth, user }}>
+        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, userAuth, user, changePass }}>
             {props.children}
         </noteContext.Provider>
-    )   
+    )
 }
 
 export default NoteState;
