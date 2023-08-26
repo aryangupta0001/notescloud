@@ -173,21 +173,30 @@ const NoteState = (props) => {
 
 
     const changePass = async (password, newpassword) => {
-        console.log("ChangePass invoked");
+        try {
+            const response = await fetch(`${HOST}/api/auth/changepass`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": localStorage.getItem("token")
+                },
+                body: JSON.stringify({ email: localStorage.getItem("email"), password, newpassword })
+            });
 
-        const response = await fetch(`${HOST}/api/auth/changepass`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": localStorage.getItem("token")
-            },
-            body: JSON.stringify({ email: localStorage.getItem("email"), password, newpassword })
-        });
+            const json = await response.json();
 
-        const json = await response.json();
+            if (json.success) {
+                showAlert({ type: "User", operation: "Passsword Changed" });
 
-        console.log(json);
+            }
+            else {
+                alert(json.error);
+            }
 
+        }
+        catch (error) {
+            alert(error.message);
+        }
 
     }
 

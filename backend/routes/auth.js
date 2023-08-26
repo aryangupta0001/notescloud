@@ -156,37 +156,37 @@ router.put("/changepass", fetchUser, async (req, res) => {
     let success = false;
 
     const { email, password, newpassword } = req.body;
+    const passUpdate = {};
 
     const salt = bcrypt.genSaltSync(10);
     const secPass = bcrypt.hashSync(newpassword, salt);
 
+    passUpdate.password = secPass;
+
     try {
 
         const user = await User.findOne({ email: email })
-
         let passMatch = await bcrypt.compare(password, user.password)
-        console.log("PasssMatch", passMatch);
-
 
         if (passMatch) {
             try {
-                User.findByIdAndUpdate(req.id, { $set: { password: secPass } }, { new: true });
-            } catch (error) {
-                console.log(error);
+                User.findByIdAndUpdate(req.id, { $set: passUpdate }, { new: true })
+                    .then(
+                        success = true,
+                        res.send({ success })
+                    );
+            }
+
+            catch (error) {
                 res.send({ success, error });
             }
         }
         else {
-            alert("Wrong Password");
-            res.send({ success, message: "Wrong Password" });
+            res.send({ success, error: "Wrong Password" });
         }
 
-
-        
     } catch (error) {
-        console.log(error);
-        res.send({ success, message: "Wrong Password" });
-
+        res.send({ success, error });
     }
 })
 

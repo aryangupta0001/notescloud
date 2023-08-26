@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 import noteContext from '../context/notes/noteContext';
@@ -80,7 +80,17 @@ const Navbar = () => {
 
 
     const handleChangePassword = () => {
-        navigate("/changePass")
+        navigate("/changePass");
+
+        setTimeout(() => {
+            const target = document.getElementById("password");
+            console.log(target);
+
+            if (target) {
+                target.focus();
+                setProfile(false);
+            }
+        }, 0);
     }
 
 
@@ -127,7 +137,7 @@ const Navbar = () => {
 
                                     <hr />
 
-                                    <div onClick={handleChangePassword}>
+                                    <div className='pointer' onClick={handleChangePassword}>
                                         Change Password
                                     </div>
 
@@ -137,7 +147,7 @@ const Navbar = () => {
                                 </>
                                 :
                                 <>
-                                    <div onClick={() => { navigate("/") }}>Log In / Sign Up</div>
+                                    <div className='pointer' onClick={() => { navigate("/") }}>Log In / Sign Up</div>
                                 </>
                             }
                         </div>
