@@ -43,19 +43,40 @@ const Notes = () => {
         editNote(note.id, note.title, note.description, note.tag);
     }
 
+    const handleAddHover = () => {
+        const circle = document.getElementById("addLogo").children[0];
+        const plus = document.getElementById("addLogo").children[1];
+
+        circle.setAttribute("fill", "rgb(13, 110, 253)");
+        plus.setAttribute("fill", "#ffffff");
+    }
+
+    const handleAddLeave = () => {
+        const circle = document.getElementById("addLogo").querySelector("circle");
+        const plus = document.getElementById("addLogo").children[1];
+
+        circle.setAttribute("fill", "#00000000");
+        plus.setAttribute("fill", "rgb(13, 110, 253)");
+    };
+
+
     useEffect(() => {
         const index = notes.length;
 
         if (index > 0) {
-            const target = document.getElementById("notes");
-            const lastNote = target.children[index - 1].firstElementChild;
+            const notes = document.getElementById("notes");
+            const lastNote = notes.children[index - 1].firstElementChild;
             const height = lastNote.offsetHeight;
 
-            const lastEle = target.children[index].firstElementChild;
+            const lastEle = notes.children[index].firstElementChild;
 
             lastEle.style.maxHeight = height + "px";
 
-            document.getElementById("addLogo").style.maxHeight = height + "px";
+            const addNoteButton = document.getElementById("addNoteButton");
+
+            addNoteButton.style.maxHeight = height + "px";
+
+            addNoteButton.children[0].style.height = 0.8 * height + "px";
         }
     }, [notes]);
 
@@ -117,16 +138,13 @@ const Notes = () => {
                     }
 
 
-                    <div className='col-md-3'>
-                        <div className='card my-3'>
-                            <div className=' d-inline d-flex justify-content-center align-items-center' id='addNoteButton' style={{ maxHeight: "100%" }}>
-                                {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
-                                    </svg> */}
-
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16" id='addLogo'>
-                                    <circle cx="8" cy="8" r="8" fill="currentColor" style={{ maxHeight: "90%" }} />
-                                    <path d="M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" fill="red" style={{ maxHeight: "90%" }} />
+                    <div className='col-md-3 '>
+                        <div className='card my-3 p-3'>
+                            <div className='addNoteButton d-inline d-flex justify-content-center align-items-center' id='addNoteButton' >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="bi bi-plus-circle pointer" viewBox="0 0 16 16" id="addLogo" onMouseOver={handleAddHover} onMouseLeave={handleAddLeave}
+                                >
+                                    <circle id='circle' cx="8" cy="8" r="8" fill="#00000000" />
+                                    <path d="M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" fill="rgb(13, 110, 253)" />
                                 </svg>
 
                             </div>

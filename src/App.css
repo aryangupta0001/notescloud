@@ -59,10 +59,13 @@ i {
 }
 
 
-#addNoteButton svg {
-  max-height: 100%;
+#circle :hover {
+  fill: rgb(13, 110, 253);
 }
 
+.circle-hover:hover {
+  fill: rgb(13, 110, 253);
+}
 
 
 
