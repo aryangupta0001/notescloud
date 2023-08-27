@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Note = require("../models/Note")
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const fetchUser = require("../middleware/fetchUser")
 
@@ -55,7 +53,7 @@ router.get("/fetchnote", fetchUser, async (req, res) => {
 
     try {
         const note = await Note.find({ user: req.id });
-        res.json(note);
+        res.send(note);
     }
     catch (error) {
         // res.status(500).send("Some Error Occured");

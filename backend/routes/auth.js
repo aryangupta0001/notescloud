@@ -16,7 +16,6 @@ router.get("/", (req, res) => {
     res.json(obj)
 })
 
-
 // Endpoint --> Endpoint to CREATE NEW USER by sending data through POST request.
 
 router.post("/createuser",
@@ -40,7 +39,7 @@ router.post("/createuser",
 
                 if (user) {             // If any doocument with current e-mail id is available in collection, it means it is duplicate.
                     console.log({ success, error: "A user with this email already exists" });
-                    return res.status(400).json({ success, error: "A user with this email already exists" });
+                    return res.status(400).send({ success, error: "A user with this email already exists" });
                 }
 
                 else {
@@ -74,7 +73,7 @@ router.post("/createuser",
         }
 
         else {
-            // console.log({ success, error: "User Already exists" });
+            console.log({ success, error: "User Already exists" });
             res.send({ success, error: "User Already exists", result });
         }
     }
@@ -90,40 +89,46 @@ router.post("/login", [
     // In above validations, the second parameter is optional, it is sent to the client when any error occurs (i.e validation fails)    
 ],
     async (req, res) => {
-        const result = validationResult(req);
 
-        let success = false;
+        try {
+            const result = validationResult(req);
 
-        if (result.isEmpty()) {
-            const { email, password } = req.body;
+            let success = false;
 
-            try {
-                const user = await User.findOne({ email: email })
-                if (user) {
-                    let passMatch = await bcrypt.compare(password, user.password)
+            if (result.isEmpty()) {
+                const { email, password } = req.body;
 
-                    if (passMatch) {
-                        const jwtToken = jwt.sign({ id: user.id }, JWT_TOKEN);
-                        success = true;
-                        res.json({ success, jwtToken });
+                try {
+                    const user = await User.findOne({ email: email })
+                    if (user) {
+                        let passMatch = await bcrypt.compare(password, user.password)
+
+                        if (passMatch) {
+                            const jwtToken = jwt.sign({ id: user.id }, JWT_TOKEN);
+                            success = true;
+                            res.send({ success, jwtToken });
+                        }
+                        else {
+                            res.status(400).send({ success, error: "Invalid credentials" });
+                        }
                     }
+
                     else {
-                        return res.status(400).json({ success, error: "Invalid credentials" });
+                        res.status(400).send({ success, error: "Invalid credentials" });
                     }
                 }
-
-                else {
-                    return res.status(400).json({ success, error: "Invalid credentials" });
+                catch (error) {
+                    res.status(500).send({ success, error });
                 }
-            } catch (error) {
-                res.status(500).send({ success, error });
-                console.error(success, error.message);
             }
-        }
 
-        else {
-            res.status(400).send({ success, errors: result.array() });
-            console.log(success, result.array());
+            else {
+                res.status(400).send({ success, errors: result.array() });
+            }
+
+
+        } catch (error) {
+            res.send({ success, error });
         }
 
     }
@@ -152,7 +157,6 @@ router.post("/userauth", fetchUser, async (req, res) => {
 // Endpoint --> Endpoint to Change User Password.
 
 router.put("/changepass", fetchUser, async (req, res) => {
-    console.log("API called");
     let success = false;
 
     const { email, password, newpassword } = req.body;

@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import noteContext from "./noteContext"
 
 
 const NoteState = (props) => {
 
-    const HOST = "http://127.0.0.1:5000";
+    const HOST = "http://localhost:5000";
 
     let initialNotes = [];
 
@@ -33,7 +33,8 @@ const NoteState = (props) => {
             setNotes(json);
         }
         catch (error) {
-            console.log("Error fetching notes:", error.message);
+            alert("Some eerror occured \n Check console for more info.")
+            console.log("Error fetching notes: \n", error);
         }
     }
 
@@ -54,6 +55,7 @@ const NoteState = (props) => {
             showAlert({ type: "Note", operation: "Added" });
 
         } catch (error) {
+            alert("Some eerror occured \n Check console for more info.")
             console.log(error);
         }
 
@@ -80,6 +82,8 @@ const NoteState = (props) => {
             showAlert({ type: "Note", operation: "Updated" });
 
         } catch (error) {
+
+            alert("Some eerror occured \n Check console for more info.")
             console.log(error);
         }
 
@@ -104,6 +108,7 @@ const NoteState = (props) => {
             showAlert({ type: "Note", operation: "Deleted" });
 
         } catch (error) {
+            alert("Some eerror occured \n Check console for more info.")
             console.log(error);
         }
 
@@ -140,12 +145,14 @@ const NoteState = (props) => {
 
         if (json.success) {
             localStorage.setItem("token", json.authtoken);
+
+
             // await userAuth();
         }
         else {
-            alert("Invalid Credentials")
+            alert(json.error);
         }
-        console.log(json);
+
 
     }
 
@@ -167,6 +174,7 @@ const NoteState = (props) => {
             setUser({ name: json.name, email: json.email });
 
         } catch (error) {
+            alert("Some eerror occured \n Check console for more info.")
             console.log("Error verifying user", error);
         }
     }

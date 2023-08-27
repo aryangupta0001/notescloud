@@ -3,7 +3,6 @@ import NoteItem from './NoteItem';
 import AddNote from './AddNote';
 import noteContext from '../context/notes/noteContext'
 import { useNavigate } from "react-router-dom";
-import { isDOMComponent } from 'react-dom/test-utils';
 
 
 

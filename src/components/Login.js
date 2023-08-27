@@ -5,12 +5,11 @@ import noteContext from '../context/notes/noteContext'
 const Login = () => {
     const context = useContext(noteContext);
 
+    const HOST = "http://127.0.0.1:5000";
+
     const { showAlert, setToggleLogin, userAuth } = context;
 
     const [credentials, setCred] = useState({ email: "", password: "" });
-
-
-    const HOST = "http://127.0.0.1:5000";
 
     const onChange = (e) => {
         setCred({ ...credentials, [e.target.name]: e.target.value });
@@ -44,10 +43,10 @@ const Login = () => {
                 alert("Invalid Credentials")
             }
         } catch (error) {
+
+            alert("Error in console");
             console.log("Error in logging in : ", error);
         }
-
-        // console.log(user);
 
     }
 
