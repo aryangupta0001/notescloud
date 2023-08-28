@@ -4,7 +4,7 @@ import noteContext from '../context/notes/noteContext'
 const ChangePass = () => {
     const context = useContext(noteContext);
 
-    const { showAlert, setToggleLogin, userAuth, changePass } = context;
+    const { changePass } = context;
 
     const [credentials, setCred] = useState({ password: "", newpassword: "", cnfpassword: "" });
 

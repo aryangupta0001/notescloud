@@ -67,7 +67,13 @@ i {
   fill: rgb(13, 110, 253);
 }
 
+.newNoteEle {
+  border: none;
+  border-bottom: 1px solid black;
 
+  margin-bottom: 5px;
+  outline: none;
+}
 
 
 

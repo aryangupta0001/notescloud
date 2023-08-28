@@ -19,7 +19,7 @@ const AddNote = () => {
         showAlert("Added")
     }
 
-    let tags = ["general", "priority", "important", "urgent", "asap", "free"];
+    let tags = ["general", "priority", "important", "urTgent", "asap", "free"];
 
 
     return (

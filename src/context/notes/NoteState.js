@@ -12,6 +12,7 @@ const NoteState = (props) => {
     const [alertObj, setAlert] = useState(null);
     const [toggleLogin, setToggleLogin] = useState(true);
     const [user, setUser] = useState({});
+    const [totalNotes, setTotalNotes] = useState(0);
 
 
     // CRUD Operations :-
@@ -30,6 +31,8 @@ const NoteState = (props) => {
             });
 
             const json = await response.json();
+
+            setTotalNotes(Object.keys(json).length);
             setNotes(json);
         }
         catch (error) {
@@ -210,7 +213,7 @@ const NoteState = (props) => {
 
 
     return (
-        <noteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, userAuth, user, changePass }}>
+        <noteContext.Provider value={{ notes, setNotes, addNote, editNote, deleteNote, fetchNotes, showAlert, setAlert, alertObj, userLogin, toggleLogin, setToggleLogin, userAuth, user, changePass, totalNotes }}>
             {props.children}
         </noteContext.Provider>
     )
