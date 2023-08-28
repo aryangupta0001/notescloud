@@ -26,7 +26,6 @@ const NoteItem = (props) => {
 
     const handleEditNote = () => {
         setToggleEdit(true);
-
         setNote({ id: current_note._id, title: current_note.title, description: current_note.description, tag: current_note.tag });
     }
 
@@ -51,7 +50,7 @@ const NoteItem = (props) => {
                                     <i className="fa-sharp fa-solid fa-pencil mx-3 pointer" style={{ color: "#0000ff", fontSize: "1.2em" }} onClick={handleEditNote}></i>
                                     <i className="fa-sharp fa-regular fa-trash-can mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.25em" }} onClick={() => { deleteNote(current_note._id) }}></i>
                                 </div>
-
+        
                                 <h3 className="card-title">{current_note.title}</h3>
 
                                 <p className="card-text">{current_note.description}</p>
@@ -65,7 +64,7 @@ const NoteItem = (props) => {
                             <div className="card-body">
                                 <div className='float-end'>
                                     <i className="fa-sharp fa-solid fa-check pointer" style={{ color: "#32ff24", fontSize: "1.35em" }} onClick={updateNote}></i>
-                                    <i className="fa-sharp fa-solid fa-xmark mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.3em" }} onClick={() => { deleteNote(current_note._id) }}></i>
+                                    <i className="fa-sharp fa-solid fa-xmark mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.3em" }} onClick={() => { setToggleEdit(false) }}></i>
                                 </div>
 
                                 <h4>
@@ -77,7 +76,7 @@ const NoteItem = (props) => {
                             </div>
                         </div>
                     </div >
-                </div>
+                </div >
             </>
             :
             <>
