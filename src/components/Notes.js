@@ -71,6 +71,13 @@ const Notes = () => {
         }
     }
 
+    const deleteNew = () => {
+        console.log(newNotes);
+        let deletedNote = newNotes.pop();
+        console.log(deletedNote);
+        setNote(newNotes);
+    }
+
     useEffect(() => {
         const index = notes.length;
 
@@ -96,7 +103,10 @@ const Notes = () => {
         <>
             <div className="container">
 
-                <AddNote />
+
+
+                {/* Uncomment for old view --> */}
+                {/* <AddNote /> */}
 
                 <button ref={ref} type="button" className="btn d-none" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                 </button>
@@ -141,7 +151,7 @@ const Notes = () => {
                     {
                         // console.log(notes)  
                         notes.map((note) => (
-                            <NoteItem current_note={note} key={note._id} updateNote={updateNote} />
+                            <NoteItem current_note={note} key={note._id} updateNote={updateNote} deleteNew={deleteNew} />
                         ))
 
                     }

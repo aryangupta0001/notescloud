@@ -6,7 +6,9 @@ const NoteItem = (props) => {
 
     const context = useContext(noteContext);
     const { addNote, showAlert, deleteNote, editNote } = context;
-    const { current_note } = props;
+
+    const { current_note, deleteNew } = props;
+
     const [note, setNote] = useState({ title: "", description: "", tag: "" });
     const [toggleEdit, setToggleEdit] = useState(false);
 
@@ -15,7 +17,6 @@ const NoteItem = (props) => {
     const onChange = (e) => {
         setNote({ ...note, [e.target.name]: e.target.value })
     }
-
 
     const handleAdd = (e) => {
         e.preventDefault();
@@ -40,17 +41,14 @@ const NoteItem = (props) => {
             ?
             <>
                 <div className='col-md-3'>
-
                     <div className={`${toggleEdit ? "d-none" : "d-block"}`}>
                         <div className="card my-3 w-100">
                             <div className="card-body">
                                 <div className='float-end'>
-                                    {/* <i className="fa-sharp fa-solid fa-pencil mx-3 pointer" style={{ color: "#0000ff", fontSize: "1.2em" }} onClick={() => { updateNote(current_note) }}></i> */}
-
                                     <i className="fa-sharp fa-solid fa-pencil mx-3 pointer" style={{ color: "#0000ff", fontSize: "1.2em" }} onClick={handleEditNote}></i>
                                     <i className="fa-sharp fa-regular fa-trash-can mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.25em" }} onClick={() => { deleteNote(current_note._id) }}></i>
                                 </div>
-        
+
                                 <h3 className="card-title">{current_note.title}</h3>
 
                                 <p className="card-text">{current_note.description}</p>
@@ -85,7 +83,7 @@ const NoteItem = (props) => {
                         <div className="card-body">
                             <div className='float-end'>
                                 <i className="fa-sharp fa-solid fa-check pointer" style={{ color: "#32ff24", fontSize: "1.35em" }} onClick={handleAdd}></i>
-                                <i className="fa-sharp fa-regular fa-trash-can mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.25em" }} onClick={() => { deleteNote(current_note._id) }}></i>
+                                <i className="fa-sharp fa-regular fa-trash-can mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.25em" }} onClick={deleteNew}></i>
                             </div>
 
                             <input type="text" name="title" id="title" className='newNoteEle' placeholder='Title' autoFocus value={note.title} onChange={onChange} />
