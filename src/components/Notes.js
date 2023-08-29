@@ -64,18 +64,11 @@ const Notes = () => {
     const handeAddClick = () => {
         if (document.getElementById("notes").children.length === totalNotes + 1) {
             notes.map((note) => {
-                newNotes.push(note)
+                newNotes.push(note);
             });
             newNotes.push({ title: "", description: "", tag: "", _id: "newNote" });
             setNotes(newNotes);
         }
-    }
-
-    const deleteNew = () => {
-        console.log(newNotes);
-        let deletedNote = newNotes.pop();
-        console.log(deletedNote);
-        setNote(newNotes);
     }
 
     useEffect(() => {
@@ -125,15 +118,15 @@ const Notes = () => {
                                 <form className="my-3">
                                     <div className="mb-3">
                                         <label htmlFor="title" className="form-label">Title</label>
-                                        <input type="text" className="form-control" id="title" name='title' onChange={onChange} value={note.title} />
+                                        <input type="text" className="form-control" id="title" name='title' value={note.title} onChange={onChange} />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="desc" className="form-label">Description</label>
-                                        <input type="text" className="form-control" id="descripiton" name='description' onChange={onChange} value={note.description} />
+                                        <input type="text" className="form-control" id="descripiton" name='description' value={note.description} onChange={onChange} />
                                     </div>
                                     <div className="mb-3">
                                         <label htmlFor="tag" className="form-label">Tag</label>
-                                        <input type="text" className="form-control" id="tag" name='tag' onChange={onChange} value={note.tag} />
+                                        <input type="text" className="form-control" id="tag" name='tag' value={note.tag} onChange={onChange} />
                                     </div>
                                 </form>
                             </div>
@@ -151,7 +144,7 @@ const Notes = () => {
                     {
                         // console.log(notes)  
                         notes.map((note) => (
-                            <NoteItem current_note={note} key={note._id} updateNote={updateNote} deleteNew={deleteNew} />
+                            <NoteItem current_note={note} key={note._id} updateNote={updateNote} />
                         ))
 
                     }

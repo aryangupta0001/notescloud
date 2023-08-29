@@ -4,7 +4,7 @@ import noteContext from '../context/notes/noteContext'
 
 const AddNote = () => {
     const context = useContext(noteContext);
-    const { addNote, showAlert, deleteNote } = context;
+    const { addNote, fetchNotes } = context;
 
     const [note, setNote] = useState({ title: "", description: "", tag: "" });
 
@@ -14,16 +14,14 @@ const AddNote = () => {
 
     const handleAdd = (e) => {
         e.preventDefault();
-        addNote(note.title, note.description, note.tag);
-        setNote({ title: "", description: "", tag: "" });
-        showAlert("Added");
+
+        if (note.title.length >= 5 && note.description.length >= 5) {
+            addNote(note.title, note.description, note.tag);
+            setNote({ title: "", description: "", tag: "" });
+        }
     }
 
     let tags = ["general", "priority", "important", "urgent", "asap", "free"];
-
-
-
-
 
     return (
 
@@ -32,6 +30,7 @@ const AddNote = () => {
         // <div>
         //     <div className="container my-5">
         //         <h2>Add a Note</h2>
+
         //         <form className="my-3" id='addNote'>
         //             <div className="mb-3 w-50">
         //                 <div className='d-flex justify-content-between'>
@@ -79,15 +78,12 @@ const AddNote = () => {
 
 
 
-
-
-
         <div className='col-md-3'>
             <div className="card my-3 w-100">
                 <div className="card-body">
                     <div className='float-end'>
                         <i className="fa-sharp fa-solid fa-check pointer" style={{ color: "#32ff24", fontSize: "1.35em" }} onClick={handleAdd}></i>
-                        {/* <i className="fa-sharp fa-regular fa-trash-can mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.25em" }} onClick={() => { deleteNote(current_note._id) }}></i> */}
+                        <i className="fa-sharp fa-solid fa-xmark mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.3em" }} onClick={fetchNotes}></i>
                     </div>
 
                     <input type="text" name="title" id="title" className='newNoteEle' placeholder='Title' autoFocus value={note.title} onChange={onChange} />
@@ -100,10 +96,14 @@ const AddNote = () => {
                         ))}
                     </datalist>
 
+                    <p style={{ color: "red", display: (note.title.length >= 5 && note.description.length >= 5) && 'none', fontSize: "0.8em", margin: "0" }}>Title & Description must be min. 5 characters</p>
+
+
                 </div>
             </div>
 
         </div >
+
     )
 }
 
