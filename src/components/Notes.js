@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import NoteItem from './NoteItem';
-import AddNote from './AddNote';
 import noteContext from '../context/notes/noteContext'
 import { useNavigate } from "react-router-dom";
 
@@ -63,6 +62,7 @@ const Notes = () => {
 
     const handeAddClick = () => {
         if (document.getElementById("notes").children.length === totalNotes + 1) {
+            // eslint-disable-next-line
             notes.map((note) => {
                 newNotes.push(note);
             });
@@ -73,21 +73,26 @@ const Notes = () => {
 
     useEffect(() => {
         const index = notes.length;
+        const addNoteButton = document.getElementById("addNoteButton");
 
         if (index > 0) {
-            const notes = document.getElementById("notes");
-            const lastNote = notes.children[index - 1].firstElementChild;
+            const notesEle = document.getElementById("notes");
+            const lastNote = notesEle.children[index - 1].firstElementChild;
             const height = lastNote.offsetHeight;
 
-            const lastEle = notes.children[index].firstElementChild;
+            const lastEle = notesEle.children[index].firstElementChild;
 
             lastEle.style.maxHeight = height + "px";
 
-            const addNoteButton = document.getElementById("addNoteButton");
-
-            addNoteButton.style.maxHeight = height + "px";
 
             addNoteButton.children[0].style.height = 0.8 * height + "px";
+        }
+
+        else {
+            addNoteButton.style.width = '10vw';
+            const Card = document.getElementsByClassName("card")[0];
+            Card.style.width = 'fit-content';
+
         }
     }, [notes]);
 
@@ -161,7 +166,9 @@ const Notes = () => {
                             </div>
                         </div>
                     </div>
+
                 </div>
+                <img src={require("./add_a_note.png")} width={"100vw"} alt="" />
 
 
             </div >

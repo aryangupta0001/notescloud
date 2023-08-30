@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import noteContext from '../context/notes/noteContext'
 
 
@@ -20,11 +20,11 @@ const Signup = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-    
+
     const { username, email, password } = credentials;
 
-    setCred({ username: "", email: "", password: "", cnfpassword: "" });  
-    
+    setCred({ username: "", email: "", password: "", cnfpassword: "" });
+
     const response = await fetch(`${HOST}/api/auth/createuser`, {
 
       method: "POST",
@@ -44,7 +44,7 @@ const Signup = () => {
     }
     else {
       alert(json.error);
-      document.getElementById("signUpForm").reset();  
+      document.getElementById("signUpForm").reset();
       navigate("/");
     }
   }

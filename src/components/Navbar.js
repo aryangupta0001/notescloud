@@ -28,7 +28,7 @@ const Navbar = () => {
         let target = document.getElementById("userProfile");
         target.style.display = "none";
 
-    }, [])
+    }, [logo])
 
 
     useEffect(() => {
