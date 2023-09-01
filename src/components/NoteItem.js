@@ -39,7 +39,8 @@ const NoteItem = (props) => {
                                 <div className='float-end'>
                                     <i className="fa-sharp fa-solid fa-pencil mx-3 pointer" style={{ color: "#0000ff", fontSize: "1.2em" }} onClick={handleEditNote}></i>
                                     <i className="fa-sharp fa-solid fa-trash-can mx-3 pointer" style={{ color: "#ff0000", fontSize: "1.25em" }} onClick={() => { deleteNote(current_note._id) }}></i>
-                                    <i className="fa fa-ellipsis-v mx-3 pointer" style={{ color: "rgba(0, 0, 0)", fontSize: "1.25em" }}></i>
+                                    {/* <i className="fa fa-ellipsis-v mx-3 pointer" style={{ color: "rgba(0, 0, 0)", fontSize: "1.25em" }}></i> */}
+                                    <i className="fa-sharp fa-light fa-ellipsis-vertical"></i>
                                 </div>
 
                                 <h3 className="card-title">{current_note.title}</h3>

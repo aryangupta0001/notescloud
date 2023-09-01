@@ -8,10 +8,10 @@ import { useNavigate } from "react-router-dom";
 
 const Notes = () => {
     const [note, setNote] = useState({ id: "", title: "", description: "", tag: "" });
-    const [addNoteImg, setAddNoteImg] = useState(false);
 
     const context = useContext(noteContext);
     const { notes, setNotes, fetchNotes, editNote, totalNotes } = context;
+    console.log(notes);
 
     const navigate = useNavigate();
 
@@ -21,7 +21,6 @@ const Notes = () => {
 
     const refClose = useRef(null);
 
-
     useEffect(() => {
         if (localStorage.getItem("token")) {
             fetchNotes();
@@ -29,81 +28,8 @@ const Notes = () => {
         else {
             navigate("/login");
         }
-
-
-
-        const updateImageMargin = () => {
-            const m1 = getComputedStyle(document.getElementsByClassName("container")[0]).marginLeft;
-            const m2 = document.getElementsByClassName("card")[0].offsetWidth / 2;
-            const img = document.getElementById("add_note_img");
-
-            img.style.marginLeft = parseInt(m1) + m2 + "px";
-        };
-
-        // Initial image margin setup
-        updateImageMargin();
-
-        // Attach the listener for window resize to update the image margin
-        window.addEventListener("resize", updateImageMargin);
-
-        // Clean up the event listener when the component unmounts
-        return () => {
-            window.removeEventListener("resize", updateImageMargin);
-        };
         // eslint-disable-next-line
-    }, []);
-
-
-    useEffect(() => {
-        if (!addNoteImg) {
-            const root = document.getElementById("root");
-            const img = document.createElement("img");
-            img.src = require("./add_notes.png");
-            img.setAttribute("id", "add_note_img");
-
-            // const container = 
-
-
-            img.style.width = "40vw";
-            img.style.height = "40vh";
-            img.style.position = "absoolute";
-
-            root.appendChild(img);
-            setAddNoteImg(true);
-        }
-    }, [addNoteImg]);
-
-    useEffect(() => {
-        // const m1 = getComputedStyle(document.getElementsByClassName("container")[0]).marginLeft;
-        // const m2 = document.getElementsByClassName("card")[0].offsetWidth / 2;
-        // const img = document.getElementById("add_note_img");
-
-        // img.style.marginLeft = parseInt(m1) + m2 + "px";
-
-
-        const updateImageMargin = () => {
-            const m1 = getComputedStyle(document.getElementsByClassName("container")[0]).marginLeft;
-            const m2 = document.getElementsByClassName("card")[0].offsetWidth / 2;
-            const img = document.getElementById("add_note_img");
-
-            img.style.marginLeft = parseInt(m1) + m2 + "px";
-        };
-
-        // Initial image margin setup
-        updateImageMargin();
-
-        // Attach the listener for window resize to update the image margin
-        window.addEventListener("resize", updateImageMargin);
-
-        // Clean up the event listener when the component unmounts
-        return () => {
-            window.removeEventListener("resize", updateImageMargin);
-        };
-        // eslint-disable-next-line
-
-
-    }, []);
-
+    }, [])
 
     const updateNote = (current_note) => {
         ref.current.click();
@@ -136,7 +62,7 @@ const Notes = () => {
 
     const handeAddClick = () => {
         if (document.getElementById("notes").children.length === totalNotes + 1) {
-            // eslint-disable-next-line
+            // eslint - disable - next - line
             notes.map((note) => {
                 newNotes.push(note);
             });
@@ -147,7 +73,7 @@ const Notes = () => {
 
     useEffect(() => {
 
-        const img = document.getElementById("add_note_img");
+        // const img = document.getElementById("add_n   ote_img");
 
 
         const index = notes.length;
@@ -156,7 +82,7 @@ const Notes = () => {
 
         if (index > 0) {
 
-            img.style.display = "none";
+            // img.style.display = "none";  
             const notesEle = document.getElementById("notes");
             const lastNote = notesEle.children[index - 1].firstElementChild;
             const height = lastNote.offsetHeight;
@@ -171,11 +97,11 @@ const Notes = () => {
         else {
             // <img src={require("./add_notes.png")} style={{ width: "40vw", height: "40vh", marginLeft: "7%" }} alt="" id='add_note_img' />
 
-            addNoteButton.style.width = '10vw';
-            const Card = document.getElementsByClassName("card")[0];
-            Card.style.width = 'fit-content';
+            // addNoteButton.style.width = '10vw';
+            // const Card = document.getElementsByClassName("card")[0];
+            // Card.style.width = 'fit-content';
 
-            img.style.display = "block";
+            // img.style.display = "block";
 
         }
     }, [notes]);
