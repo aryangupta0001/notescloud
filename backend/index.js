@@ -6,7 +6,7 @@ const cors = require("cors");
 
 connectToMongo();
 
-const PORT = 5000;
+const PORT = 5500;
 const app = express();
 
 app.use(cors());
@@ -17,6 +17,6 @@ app.use("/api/auth/", require("./routes/auth"));
 app.use("/api/notes/", require("./routes/notes"));
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on PORT ${PORT}`);
+  console.log(`App listening on PORT ${PORT}`);
   console.log(`Link :- http://localhost:${PORT}`);
 })

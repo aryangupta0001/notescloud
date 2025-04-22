@@ -58,7 +58,7 @@ const NoteItem = (props) => {
                                     <i className="fa-sharp fa-solid fa-check pointer" style={{ color: "#32ff24", fontSize: "1.35em" }} onClick={updateNote}></i>
                                     <i className="fa-sharp fa-solid fa-xmark mx-3 pointer" style={{ "color": "#ff0000", fontSize: "1.3em" }} onClick={() => { setToggleEdit(false) }}></i>
                                 </div>
-
+        
                                 <h4>
                                     <input type="text" name="title" id="title" className='newNoteEle' placeholder='Title' autoFocus value={note.title} onChange={onChange} />
                                 </h4>

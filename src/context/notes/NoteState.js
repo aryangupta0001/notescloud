@@ -58,7 +58,7 @@ const NoteState = (props) => {
             showAlert({ type: "Note", operation: "Added" });
 
         } catch (error) {
-            alert("Some eerror occured \n Check console for more info.")
+            alert("Some error occured \n Check console for more info.")
             console.log(error);
         }
 
@@ -177,7 +177,7 @@ const NoteState = (props) => {
             setUser({ name: json.name, email: json.email });
 
         } catch (error) {
-            alert("Some eerror occured \n Check console for more info.")
+            alert("Some eerror occured \n Check console fcor more info.")
             console.log("Error verifying user", error);
         }
     }

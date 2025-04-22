@@ -35,7 +35,7 @@ router.post("/createuser",
         if (result.isEmpty()) {         // checks whether the resullt object is empty or not, if it is empty,  it means there are no validation errors & all values are valid.
 
             try {
-                const user = await User.findOne({ email: req.body.email });         // It finds for the  document with same e-mail idd that is provided in current request.
+                const user = await User.findOne({ email: req.body.email });         // It finds for the  document with same e-mail id that is provided in current request.
 
                 if (user) {             // If any doocument with current e-mail id is available in collection, it means it is duplicate.
                     console.log({ success, error: "A user with this email already exists" });
@@ -68,7 +68,8 @@ router.post("/createuser",
 
             } catch (error) {
                 console.error(success, error.message)
-                res.status(500).send(success, error.message);
+                let msg = error.message;
+                res.status(500).send({success, msg});
             }
         }
 

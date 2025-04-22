@@ -34,8 +34,8 @@ router.post("/createnote", fetchUser,
                 const note = await Note.create({            // The .create() method calls the .save() method of mongoose to save the user as a new document into databasse.
                     title, description, tag, user: req.id
                 });
-                res.send(note);                 // A response for new user registration is sent. We can also send the  above generated JWT Token instead of user deetails here.
-            }
+                res.send(note);                 // A response for new user registration is sent. We can also send the above generated JWT Token instead of user deetails here.
+            }   
             catch (error) {
                 res.status(500).send("Some Error Occured");
                 console.error(error.message)

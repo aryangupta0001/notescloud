@@ -2,10 +2,16 @@ const mongoose = require('mongoose');
 const mongoose_url = "mongodb://127.0.0.1/cloudnotes"
 
 const connectToMongo = async () => {
-    await mongoose.connect(mongoose_url)
-    const dbConnect = mongoose.connection;          // Connection object
+    try {
+        await mongoose.connect(mongoose_url)
+        const dbConnect = mongoose.connection;          // Connection object
+        console.log(dbConnect);
 
-    console.log("Connected To Mongo Successfully");
+        console.log("Connected To Mongo Successfully");
+    }
+    catch(error){
+        console.error("Error Connecting to Database : ", error.message);
+    }
 }
 
 module.exports = connectToMongo;
